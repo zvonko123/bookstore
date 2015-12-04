@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-
+using Newtonsoft.Json;
 
 
 /// <summary>
@@ -24,34 +24,20 @@ public class WebService : System.Web.Services.WebService {
 
     [WebMethod]
     public string HelloBooks() {
-        //we need a connection here secured by the server
-
-        // Northwnd inherits from System.Data.Linq.DataContext.
-
-// or, if you are not using SQL Server Express
-// Northwnd nw = new Northwnd("Database=Northwind;Server=server_name;Integrated Security=SSPI");
-
-   // var baza = new L
-
-    
-    //from author in baza.Author
-    //where author.City == "London"
-    //select *
-
-        //foreach (var customer in baza)
-        //{
-        //    Console.WriteLine(customer);
-        //}
-
        using (var tdb = new Database("server=DATA;database=STIMAC_BOOKSTORE;user id=stimac_user; password=stimac_user;"))
         {
             var sviAutori = tdb.Author.ToList();
             List<Author> sviAutoriLista = new List<Author>();
             foreach (var a in sviAutori)
             {
-                sviAutoriLista.Add(a);
+               sviAutoriLista.Add(a);
             }
-            return sviAutoriLista.ToString();
+
+           
+            return JsonConvert.SerializeObject(sviAutoriLista,new JsonSerializerSettings()
+                        { 
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        }); ;
         }
 
         
