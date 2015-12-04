@@ -1,11 +1,11 @@
-﻿var demoApp = angular.module('demoApp', []);
+﻿var demoApp = angular.module('bookstoreApp', []);
 
-angular.module('demoApp').controller('bookstoreCtrl',
-function ($scope) {
+angular.module('bookstoreApp').controller('bookstoreCtrl',
+function ($scope,$http) {
 
 
     $scope.authors = $http
-            .post("http://localhost:49893/app/services/WebService.asmx?HelloBooks")
+            .get("http://localhost:49893/app/services/WebService.asmx?HelloBooks")
             .then(function (response) { $scope.authors = response.data.records; });
 });
     
