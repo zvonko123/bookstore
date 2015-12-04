@@ -1,18 +1,14 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title></title>
+    <title>Authors</title>
 </head>
 <body>
-    <div ng-app="myApp" ng-controller="bookstoreCtrl">
+    <div ng-app="bookstoreApp" ng-controller="bookstoreCtrl">
 
-        <table>
-            <tr ng-repeat="x in names">
-                <td>{{ x.Name }}</td>
-                <td>{{ x.Country }}</td>
-            </tr>
-        </table>
-
+        <table data-ng-controller="bookstoreCtrl">
+    
+            <ng-repeat>{{a in authors}}</ng-repeat>
     </div>
 
 
