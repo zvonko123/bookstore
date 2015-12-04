@@ -43,10 +43,10 @@ public class WebService : System.Web.Services.WebService {
         //    Console.WriteLine(customer);
         //}
 
-       using (var tdb = new Database())
+       using (var tdb = new Database("server=DATA;database=STIMAC_BOOKSTORE;user id=stimac_user; password=stimac_user;"))
         {
             var sviAutori = tdb.Author.ToList();
-            List<Author> sviAutoriLista = new List<Author>;
+            List<Author> sviAutoriLista = new List<Author>();
             foreach (var a in sviAutori)
             {
                 sviAutoriLista.Add(a);
