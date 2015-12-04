@@ -1,14 +1,14 @@
-﻿(
-function () {
-    'use strict';
-    
+﻿var demoApp = angular.module('demoApp', []);
 
-    angular.module("bookstoreApp",[])
-    .controller('bookstoreCtrl', function ($scope, $http) {
-        $http
-            .get("http://localhost:49893/app/services/WebService.asmx?HelloBooks")
+angular.module('demoApp').controller('bookstoreCtrl',
+function ($scope) {
+
+
+    $scope.authors = $http
+            .post("http://localhost:49893/app/services/WebService.asmx?HelloBooks")
             .then(function (response) { $scope.authors = response.data.records; });
-       
-    }
+});
+    
+   
         
-    )});
+   
