@@ -2,29 +2,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Authors</title>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
     <script src="../Scripts/angular.min.js"></script>
     <!--<script src="modules.js"></script>-->
     <script src="app.js"></script>
-  
-   
-    
-</head>
-<body>
-    <div ng-app="bookstoreApp" ng-controller="bookstoreCtrl">
-        <input type="text" />
 
-        <table ng-table="vm.tableParams" class="table" show-filter="true">
-            <tr ng-repeat="x in data">
-                <td>{{ $index + 1 }}</td>
-                <td>{{ x.firstname }}</td>
-                <td>{{ x.lastname }}</td>
-            </tr>
+    <!-- datatables reference -->
+    <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
+   
+
+
+</head>
+<body style="..">
+    <div ng-app="bookstoreApp" ng-controller="bookstoreCtrl">
+       
+        <table ng-table="vm.tableParams" id="AuthorsTable" >
+            <thead>
+                <tr>
+                    <th>index</th>
+                    <th>firstName</th>
+                    <th>lastName</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="x in data">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ x.firstname }}</td>
+                    <td>{{ x.lastname }}</td>
+                </tr>
+            </tbody>
         </table>     
     </div>
 
-
+    
     
 </body>
 </html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#AuthorsTable').DataTable();
+    });
+</script>
+
 
 
