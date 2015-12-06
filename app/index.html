@@ -3,20 +3,23 @@
 <head>
     <title>Authors</title>
     <script src="../Scripts/angular.min.js"></script>
-    <script src="modules.js"></script>
+    <!--<script src="modules.js"></script>-->
     <script src="app.js"></script>
-    
-    <!--NuGet ?-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+  
+   
     
 </head>
 <body>
     <div ng-app="bookstoreApp" ng-controller="bookstoreCtrl">
+        <input type="text" />
 
-        <table data-ng-controller="bookstoreCtrl">
-            <input type="text" ng-model="authors"/>
-            <div ng-repeat="(key, value) in authors"> {{value}} </div>
+        <table ng-table="vm.tableParams" class="table" show-filter="true">
+            <tr ng-repeat="x in data">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ x.firstname }}</td>
+                <td>{{ x.lastname }}</td>
+            </tr>
+        </table>     
     </div>
 
 
