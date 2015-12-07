@@ -1,4 +1,4 @@
-﻿var demoApp = angular.module('bookstoreApp', []);
+﻿var demoApp = angular.module('bookstoreApp', ['datatables']);
 
 angular.module('bookstoreApp').controller('bookstoreCtrl',
 function ($scope,$http) {
@@ -27,9 +27,10 @@ function ($scope,$http) {
    //     "3": { "firstname": "tin", "lastname": "ujevic" },
    // }
 
-   $scope.showNewBookForm = function () {
-       window.alert("addnewbookcode");
+   $scope.showNewBookForm = function ($id) {
+       window.alert("Your about to add a new book !");
        $scope.bookFormHidden = false;
+       $scope.formAuthor = $scope.authors[$id].FirstName + " " + $scope.authors[$id].LastName
    }
 
   

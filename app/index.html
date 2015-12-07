@@ -5,21 +5,21 @@
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="../Scripts/angular.min.js"></script>
-    <script src="../Scripts/jquery.xml2json.js"
-
-    <!--<script src="modules.js"></script>-->
+    <script src="../Scripts/jquery.xml2json.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+                    <!--<script src="modules.js"></script>-->
     <script src="app.js"></script>
 
     <!-- datatables reference -->
     <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
-
+    <script src="../angular-datatables.min.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">-->
+     <link rel="stylesheet" type="text/css" href="../Content/bootstrap.min.css">
 
 
 </head>
 <body>
-    <button ng-model="buttonAuthor" class="btn btn-default btn-lg">
+    <button ng-model="buttonAuthor" class="btn btn-default btn-lg"/>
         <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
         <br />
 
@@ -27,7 +27,7 @@
         <div>
             <div ng-app="bookstoreApp" ng-controller="bookstoreCtrl">
 
-                <table id="AuthorsTable">
+                <table datatable="" class="row-border hover">
                     <thead>
                         <tr>
                             <th>index</th>
@@ -43,7 +43,7 @@
                             <td>{{ x.FirstName }}</td>
                             <td>{{ x.LastName }}</td>
                             <td>
-                                <button ng-click="showNewBookForm()" class="btn btn-default btn-lg">
+                                <button id="{{$index}}" ng-click="showNewBookForm($index)" class="glyphicon-plus-sign"/>
                                     
                             </td>
                         </tr>
@@ -51,7 +51,12 @@
                 </table>
 
                 <div ng-hide="bookFormHidden" id="NewBookForm">
-                    add form for adding a book
+                    <form>
+                        <label>Author</label>
+                        <input type="text" id="bookFormAutor" ng-model="formAuthor" /><br />
+                        <label>Book</label>
+                        <input type="text" id="bookFormBook" /><br />
+                    </form>
                 </div>
 
             </div>
@@ -60,9 +65,4 @@
 
 </body>
 </html>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#AuthorsTable').DataTable();
-    });
-</script>
 
