@@ -27,7 +27,7 @@
         <div>
             <div ng-app="bookstoreApp" ng-controller="bookstoreCtrl">
 
-                <table datatable="" class="row-border hover">
+                <table datatable="ng" class="row-border hover">
                     <thead>
                         <tr>
                             <th>index</th>
@@ -65,4 +65,8 @@
 
 </body>
 </html>
-
+<script type="text/javascript">
+    $(document).load(function () {
+        $('#AuthorsTable').DataTable();
+    });
+</script>

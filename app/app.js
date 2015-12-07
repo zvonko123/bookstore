@@ -1,4 +1,4 @@
-﻿var demoApp = angular.module('bookstoreApp', ['datatables']);
+﻿var demoApp = angular.module('bookstoreApp', ['datatables','ngResource']);
 
 angular.module('bookstoreApp').controller('bookstoreCtrl',
 function ($scope,$http) {
