@@ -5,10 +5,12 @@ function ($scope,$http) {
 
 
 
-
-    //$scope.authors = $http
+    $scope.bookFormHidden = true;
+    //$scope.data = $http
     //        .get("http://localhost:49893/app/services/WebService.asmx?HelloBooks")
-    //        .then(function (response) { $scope.authors = response.data.records; });
+    //        .then(function (response) {
+    //            $scope.authors = response.data.records;
+    //        });
     //mock data, ask for remote db connection
     $scope.data = {
         "1": { "firstname": "bjarne", "lastname": "strostup" },
@@ -18,7 +20,7 @@ function ($scope,$http) {
 
    $scope.showNewBookForm = function () {
        window.alert("addnewbookcode");
-       
+       $scope.bookFormHidden = false;
     }
 });
     
