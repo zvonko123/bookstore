@@ -40,7 +40,7 @@
 
                     <tbody>
                         <tr ng-repeat="x in authors">
-                            <td>{{ $index}}</td>
+                            <td>{{ $index+1}}</td>
                             <td>{{ x.FirstName }}</td>
                             <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
                             <td>
@@ -65,7 +65,7 @@
                     
                         
                         <ul class="bs-glyphicons-list">
-                            <li ng-repeat="book in books">{{book}}</li>
+                            <li ng-repeat="book in books"><span class="glyphicon-class">{{book}}</span></li>
                         </ul>
                     </div>
                 </div>
