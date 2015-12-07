@@ -33,6 +33,7 @@
                             <th>index</th>
                             <th>firstName</th>
                             <th>lastName</th>
+
                             <th>add new book</th>
                         </tr>
                     </thead>
@@ -60,8 +61,13 @@
                 </div>
 
                 <div ng-show='booksFromAuthorShown' class='col-md-9' id="booksFromAuthor">
-                    <label>Books:</label>
-
+                    <label>Books:{{$scope.formAuthor}}</label>
+                    
+                        
+                        <ul class="bs-glyphicons-list">
+                            <li ng-repeat="book in books">{{book}}</li>
+                        </ul>
+                    </div>
                 </div>
 
             </div>

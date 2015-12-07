@@ -38,6 +38,7 @@ function ($scope,$http) {
        window.alert("displayed books from author");
        $scope.booksFromAuthorShown = true;
        $scope.formAuthor = $scope.authors[$id].FirstName + " " + $scope.authors[$id].LastName
+       $scope.books = ["prva knjiga","druga knjiga"]
    }
   
 
