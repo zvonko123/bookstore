@@ -18,41 +18,45 @@
 
 </head>
 <body>
-    <button ng-model="buttonAuthor" aria-label="Toggle ngShow"><br />
-    <button ng-model="buttonBook" aria-label="Toggle ngShow"><br />
-    <div>
-        <div ng-app="bookstoreApp" ng-controller="bookstoreCtrl">
+    <button ng-model="buttonAuthor" class="btn btn-default btn-lg">
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <br />
 
-            <table id="AuthorsTable">
-                <thead>
-                    <tr>
-                        <th>index</th>
-                        <th>firstName</th>
-                        <th>lastName</th>
-                    </tr>
-                </thead>
+        <br />
+        <div>
+            <div ng-app="bookstoreApp" ng-controller="bookstoreCtrl">
 
-                <tbody>
-                    <tr ng-repeat="x in data">
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ x.firstname }}</td>
-                        <td>{{ x.lastname }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        
+                <table id="AuthorsTable">
+                    <thead>
+                        <tr>
+                            <th>index</th>
+                            <th>firstName</th>
+                            <th>lastName</th>
+                            <th>add new book</th>
+                        </tr>
+                    </thead>
 
-            <div id="authorInput" ng-show="checkedAuthor">
-                <input type="text" ng-model="author">
+                    <tbody>
+                        <tr ng-repeat="x in data">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ x.firstname }}</td>
+                            <td>{{ x.lastname }}</td>
+                            <td>
+                                <button ng-click="showNewBookForm()" class="btn btn-default btn-lg">
+                                    
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div hidden="true" id="NewBookForm">
+                    add form for adding a book
+                </div>
+
             </div>
+        </div>
 
-            <div id="bookInput" ng-show="checkedBook">
-                <input type="text" ng-model="author">
-            </div>
-    </div>
-    </div>
-    
-    
+
 </body>
 </html>
 <script type="text/javascript">
@@ -60,6 +64,8 @@
         $('#AuthorsTable').DataTable();
     });
 </script>
-
+<script type="text/javascript">
+    //$("$"
+</script>
 
 

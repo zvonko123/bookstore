@@ -16,7 +16,10 @@ function ($scope,$http) {
         "3": { "firstname": "tin", "lastname": "ujevic" },
     }
 
-   
+   $scope.showNewBookForm = function () {
+       window.alert("addnewbookcode");
+       
+    }
 });
     
    
