@@ -41,22 +41,27 @@
                         <tr ng-repeat="x in authors">
                             <td>{{ $index}}</td>
                             <td>{{ x.FirstName }}</td>
-                            <td>{{ x.LastName }}</td>
+                            <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
                             <td>
-                                <button id="{{$index}}" ng-click="showNewBookForm($index)" class="glyphicon-plus-sign"/>
+                                <button id="{{$index}}" ng-click="showNewBookForm($index)" class="glyphicon-plus-sign" />
                                     
                             </td>
                         </tr>
                     </tbody>
                 </table>
 
-                <div ng-show="bookFormShown" id="NewBookForm">
+                <div ng-show='bookFormShown' id="NewBookForm">
                     <form>
                         <label>Author</label>
                         <input type="text" id="bookFormAutor" ng-model="formAuthor" /><br />
                         <label>Book</label>
                         <input type="text" id="bookFormBook" /><br />
                     </form>
+                </div>
+
+                <div ng-show='booksFromAuthorShown' class='col-md-9' id="booksFromAuthor">
+                    <label>Books:</label>
+
                 </div>
 
             </div>

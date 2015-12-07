@@ -6,6 +6,7 @@ function ($scope,$http) {
 
 
     $scope.bookFormShown = false;
+    $scope.booksFromAuthorShown = false;
     $scope.data = $http
             .get("http://localhost:49893/app/services/WebService.asmx/HelloBooks")
             .then(function (response) {
@@ -33,6 +34,11 @@ function ($scope,$http) {
        $scope.formAuthor = $scope.authors[$id].FirstName + " " + $scope.authors[$id].LastName
    }
 
+   $scope.showBooksFromAuthor = function ($id) {
+       window.alert("displayed books from author");
+       $scope.booksFromAuthorShown = true;
+       $scope.formAuthor = $scope.authors[$id].FirstName + " " + $scope.authors[$id].LastName
+   }
   
 
 });
