@@ -5,7 +5,7 @@ function ($scope,$http) {
 
 
 
-    $scope.bookFormHidden = true;
+    $scope.bookFormShown = false;
     $scope.data = $http
             .get("http://localhost:49893/app/services/WebService.asmx/HelloBooks")
             .then(function (response) {
@@ -29,7 +29,7 @@ function ($scope,$http) {
 
    $scope.showNewBookForm = function ($id) {
        window.alert("Your about to add a new book !");
-       $scope.bookFormHidden = false;
+       $scope.bookFormShown = true;
        $scope.formAuthor = $scope.authors[$id].FirstName + " " + $scope.authors[$id].LastName
    }
 

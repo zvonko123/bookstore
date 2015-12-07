@@ -50,7 +50,7 @@
                     </tbody>
                 </table>
 
-                <div ng-hide="bookFormHidden" id="NewBookForm">
+                <div ng-show="bookFormShown" id="NewBookForm">
                     <form>
                         <label>Author</label>
                         <input type="text" id="bookFormAutor" ng-model="formAuthor" /><br />
@@ -65,8 +65,4 @@
 
 </body>
 </html>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#AuthorsTable').DataTable();
-    });
-</script>
+
