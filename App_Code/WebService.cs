@@ -27,12 +27,14 @@ public class WebService : System.Web.Services.WebService {
        using (var tdb = new Database("server=DATA;database=STIMAC_BOOKSTORE;user id=stimac_user; password=stimac_user;"))
         {
             var sviAutori = tdb.Author.ToList();
-            List<Author> sviAutoriLista = new List<Author>();
+            Dictionary<int,Author> sviAutoriLista = new Dictionary<int,Author>();
             foreach (var a in sviAutori)
             {
-               sviAutoriLista.Add(a);
+                int i = sviAutori.IndexOf(a);
+               sviAutoriLista.Add(i,a);
             }
-
+            
+           
            
             return JsonConvert.SerializeObject(sviAutoriLista,new JsonSerializerSettings()
                         { 

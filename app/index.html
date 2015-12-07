@@ -4,16 +4,17 @@
     <title>Authors</title>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-
     <script src="../Scripts/angular.min.js"></script>
+    <script src="../Scripts/jquery.xml2json.js"
+
     <!--<script src="modules.js"></script>-->
     <script src="app.js"></script>
 
     <!-- datatables reference -->
     <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
-    
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
-   
+
 
 
 </head>
@@ -37,10 +38,10 @@
                     </thead>
 
                     <tbody>
-                        <tr ng-repeat="x in data">
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ x.firstname }}</td>
-                            <td>{{ x.lastname }}</td>
+                        <tr ng-repeat="x in authors">
+                            <td>{{ $index}}</td>
+                            <td>{{ x.FirstName }}</td>
+                            <td>{{ x.LastName }}</td>
                             <td>
                                 <button ng-click="showNewBookForm()" class="btn btn-default btn-lg">
                                     
@@ -64,8 +65,4 @@
         $('#AuthorsTable').DataTable();
     });
 </script>
-<script type="text/javascript">
-    //$("$"
-</script>
-
 
