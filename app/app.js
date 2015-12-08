@@ -14,18 +14,20 @@ function ($scope,$http) {
                //$scope.authors = jQuery.xml2json($scope.authors)
                $scope.authors = $scope.authors.slice(76, -9)
                $scope.authors = JSON.parse($scope.authors);
-               console.log($scope.authors);
+               console.log("autori s knjigama<br>", $scope.authors);
 
                 
            });
 
 
     $scope.members = $http
-          .get("http://localhost:49893/app/services/WebService.asmx/HelloCustomers")
+          .get("http://localhost:49893/app/services/WebService.asmx/HelloMembers")
            .then(function (response) {
                $scope.members = response.data;
                //$scope.authors = jQuery.xml2json($scope.authors)
-               
+               $scope.members = $scope.members.slice(76, -9)
+               $scope.members = JSON.parse($scope.members)
+               console.log("memberi s posudjenim knjigama<br>", $scope.members);
 
 
            });
@@ -66,6 +68,15 @@ function ($scope,$http) {
                $scope.formAuthor = $scope.authors[a];
                 }
        
+   }
+    //T0d0 add logic for finding available books for lending
+   $scope.findMembersAndAvailableBook = function (bookid) {
+       for (a in $scope.authors) {
+           //console.log(a);
+           if ($scope.members[a].MemberID == id)
+               $scope.formAuthor = $scope.authors[a];
+       }
+
    }
   
 

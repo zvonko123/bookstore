@@ -26,72 +26,167 @@
         <br />
 
         <br />
-        <div>
-            <div ng-app="bookstoreApp" class="table table-striped table-bordered" ng-controller="bookstoreCtrl">
-                <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                    <table datatable="ng" class="row-border hover">
+    <div>
+        <div ng-app="bookstoreApp" class="table table-striped table-bordered" ng-controller="bookstoreCtrl">
+            <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                <table datatable="ng" class="row-border hover">
 
-                        <thead class="row">
-                            <tr>
+                    <thead class="row">
+                        <tr>
 
-                                <th>ID</th>
-                                <th>firstName</th>
-                                <th>lastName</th>
+                            <th>ID</th>
+                            <th>firstName</th>
+                            <th>lastName</th>
 
-                                <th>add new book</th>
-                            </tr>
-                        </thead>
-
-
-
-                        <tbody>
-                            <tr ng-repeat="x in authors">
-                                <td>{{ x.AuthorID}}</td>
-                                <td>{{ x.FirstName }}</td>
-                                <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
-                                <td>
-                                    <button id="{{x.AuthorID}}" ng-click="showBookForm(x.AuthorID)" class="glyphicon-plus-sign"></button>
-
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <hr />
-                <br /><br /><br />
-
-                <div ng-show="bookFormShown">
-
-                    <label>Author:{{$scope.formAuthor}}</label>
-                    <input type="text" id="bookFormAutor" ng-model="formAuthor.LastName" /><br />
-                    <ng-form ng-model="$scope.authors"
-                    <label>Book:</label>
-                    <input type="text" id="bookFormTitle" /><br />
-                    <label>Genre:</label>
-                    <input type="text" id="bookFormGenre" /><br />
-                    <label>Lent:</label>
-                    <input type="checkbox" style="will-change" id="bookFormLent" /><br />
-                    <label>Customer</label>
-                        <input type="text" id="bookFormLentTo" ng-model="$scope.bookLentTo" />
-                        <br /
-                    <button  ng-submit class="glyphicon-apple"></button>
-                    </ng-form>
-                </div>
-
-                <div ng-show='booksFromAuthorShown' class='col-md-9' id="booksFromAuthor">
-                    <label>Books:{{$scope.formAuthor}}</label>
+                            <th>add new book</th>
+                        </tr>
+                    </thead>
 
 
-                    <ul class="bs-glyphicons-list">
-                        <li ng-repeat="book in books"><span class="glyphicon-class">{{book}}</span></li>
-                    </ul>
-                </div>
+
+                    <tbody>
+                        <tr ng-repeat="x in authors">
+                            <td>{{ x.AuthorID}}</td>
+                            <td>{{ x.FirstName }}</td>
+                            <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
+                            <td>
+                                <button id="{{x.AuthorID}}" ng-click="showBookForm(x.AuthorID)" class="glyphicon-plus-sign"></button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <br /><br /><br />
+
+            <!--<div ng-repeat="book in books" ng-show="bookFormShown">
+
+                <label>Author:{{$scope.formAuthor}}</label>
+                <input type="text" id="bookFormAutor" ng-model="formAuthor.LastName" /><br />
+                <ng-form ng-model="$scope.authors"
+                <label>Book:</label>
+                <input type="text" id="bookFormTitle" /><br />
+                <label>Genre:</label>
+                <input type="text" id="bookFormGenre" /><br />
+                <label>Lent:</label>
+                <input type="checkbox" style="will-change" id="bookFormLent" /><br />
+                <label>Customer</label>
+                    <input type="text" id="bookFormLentTo" ng-model="$scope.bookLentTo" />
+                    <br /
+                <button  ng-submit class="glyphicon-apple"></button>
+                </ng-form>
             </div>
 
+            <div ng-show='booksFromAuthorShown' class='col-md-9' id="booksFromAuthor">
+                <label>Books:{{$scope.formAuthor}}</label>
+
+
+                <ul class="bs-glyphicons-list">
+                    <li ng-repeat="book in books"><span class="glyphicon-class">{{book}}</span></li>
+                </ul>
+            </div>-->
+
+
+        </div>
+        <!-- refactor this to fit angular and VS service -->
+        <div ng-show='draggieDroppie'>
+            <div class="tab-content">
+                <!-- TAB BRANDS -->
+                <div class="tab-pane active" id="brands">
+                    <h3 class="text-center"><?php echo __('YOUR BRANDS'); ?></h3>
+                    <div id='containment-wrapper'>
+                        <div id='activepanels' class='embzy-panels clearfix'>
+
+                            foreach ($activepanelss as $p) {
+                            if (!empty($p['panels']['id'])) { ?>
+                            <div class="drag ui-widget-content embzy-panel col-xs-3">
+                                <div class="embzy-panel-logo">
+                                    <img alt="<?php echo $p['panels']['id'] ?>" class="monochrome vertical-center" src="<?php echo $p['panels']['icon'] ?>" draggable="true">
+                                </div>
+                            </div>
+                            }
+                            }
+                            ?>
+                        </div>
+                        <h3 class="text-center"><?php echo __('INACTIVE BRANDS'); ?> <br></h3>
+                        <div id='inactivepanels' class="embzy-panels">
+
+                            foreach ($inactivepanelss as $panel) {
+                            if (!empty($panel['panels']['id'])) { ?>
+                            <div class="drag ui-widget-content embzy-panel col-xs-3">
+                                <div class="embzy-panel-logo">
+                                    <img alt="<?php echo $panel['panels']['id'] ?>" class="monochrome vertical-center" src="<?php echo $panel['panels']['icon'] ?>" draggable="true">
+                                </div>
+                            </div>
+                            }
+                            } ?>
+                        </div>
+                    </div>
+                    <!-- END TAB BRANDS -->
+                </div>
+
+                <!--END refactor this to fit angular and VS service -->
             </div>
         </div>
 
+        <script>
+    $(function() {
+        $( ".drag" ).draggable({ containment: "#containment-wrapper", scroll: false ,snap: "#inactivepanels,#activepanels", snapMode: "inner" });
+    });
 
+
+    $( "#activepanels" ).droppable({
+        activeClass: "ui-state-hover",
+        hoverClass: "ui-state-active",
+        drop: function( event, ui ) {
+            ui.draggable.draggable();
+            var id = ui.draggable.attr('alt');
+
+            $.ajax({
+                url: '<?php echo Router::url(array('controller'=>'agents','action'=>'bind_panel'));?>',
+                type: "POST",
+            dataExpression:true,
+            data: {
+                'id': id
+            }
+        }).done(function (data, textStatus, jqXHR) {
+            console.log('success adding panel', textStatus);
+            console.log(id);
+
+        }).fail(function (data, textStatus, jqXHR) {
+            console.log('failed adding panel', textStatus);
+
+        });
+    }
+    });
+
+    $( "#inactivepanels" ).droppable({
+        activeClass: "ui-state-hover",
+        hoverClass: "ui-state-active",
+        drop: function( event, ui ) {
+            ui.draggable.draggable();
+            var id = ui.draggable.attr('alt');
+
+            $.ajax({
+                url: '<?php echo Router::url(array('controller'=>'agents','action'=>'unbind_panel'));?>',
+                type: "POST",
+            dataExpression:true,
+            data: {
+                'id': id
+            }
+        }).done(function (data, textStatus, jqXHR) {
+            console.log('success removing panel', textStatus);
+            console.log(id);
+
+        }).fail(function (data, textStatus, jqXHR) {
+            console.log('failed removing panel', textStatus);
+
+        });
+    }
+    });
+
+        </script>
 </body>
 </html>
 

@@ -46,7 +46,7 @@ public class WebService : System.Web.Services.WebService {
     }
 
     [WebMethod]
-    public string HelloCustomers()
+    public string HelloMembers()
     {
         using (var tdb = new Database("server=DATA;database=STIMAC_BOOKSTORE;user id=stimac_user; password=stimac_user;"))
         {
