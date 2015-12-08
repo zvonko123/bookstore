@@ -52,7 +52,7 @@
                             <td>{{ x.FirstName }}</td>
                             <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
                             <td>
-                                <button id="{{x.AuthorID}}" ng-click="showBookBasket(x.AuthorID);applyDrag()" class="glyphicon-plus-sign">{{x.LastName}}'s Basket</button>
+                                <button id="{{x.AuthorID}}" ng-click="showBookBasket(x.AuthorID)" class="glyphicon-plus-sign">{{x.LastName}}'s Basket</button>
 
                             </td>
                         </tr>
@@ -100,9 +100,9 @@
                        
                         <div id='borrowedBooksDiv' ng-drop=true ng-drop-success="borrowingBook($data,$event)" class='bookstore-panels clearfix'>
 
-                            <div ng-repeat="borrowedBook in borrowedAuthorBooks">
+                            <div ng-repeat="borrowedBook in borrowedAuthorBooks track by $index">
                                 <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{borrowedBook}}" class="bookstore-panel-logo">
-                                    <img alt={{borrowedBook.Title}} class="monochrome vertical-center" src={{borrowedBook.CoverImage}} draggable="true">
+                                <img alt={{borrowedBook.Title}} class="monochrome vertical-center" src={{borrowedBook.CoverImage}}>
                                 </div>
                             </div>
 
@@ -111,9 +111,9 @@
                         <h3 class="text-center">Available Books</h3><br>
                         <div id='availableBooksDiv' ng-drop="true" ng-drop-success="availingBook($data,$event)" class="bookstore-panels">
 
-                            <div ng-repeat="availableBook in availableAuthorBooks">
-                                <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{availableBook}}" class=" bookstore-panel-logo">
-                                    <img alt={{availableBook.Title}} class="monochrome vertical-center" src={{availableBook.CoverImage}} draggable="true">
+                            <div ng-repeat="availableBook in availableAuthorBooks track by $index">
+                                <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{availableBook}}" class="bookstore-panel-logo">
+                                    <img alt={{availableBook.Title}} class="monochrome vertical-center" src={{availableBook.CoverImage}}>
                                 </div>
                             </div>
 

@@ -3,26 +3,40 @@
 angular.module('bookstoreApp').controller('bookstoreCtrl',
 function ($scope,$http,$filter) {
 
-    //borrowing and availing books, add new book copy method and user box(copyBook)
+    //borrowing and availing books, add new book copy method and member box
     $scope.borrowingBook = function (book, evt) {
         console.log("trying to borrow book.., book:", book);
-        $scope.borrowedAuthorBooks.push(book);
+        //$scope.borrowedAuthorBooks.push(book);
+        
+        
+        $scope.borrowedAuthorBooks = $scope.borrowedAuthorBooks.concat(book);
+        angular.forEach($scope.availableAuthorBooks, function (value, key) {
+            if (value.BookID == book.BookID) {
+                delete $scope.availableAuthorBooks[key];
+            }
 
-        $scope.availableAuthorBooks = $filter('filter')($scope.availableAuthorBooks, { BookID: book.BookID }, true)
-
+        });
+        //$scope.borrowedAuthorBooks.push({ "BookID": book.BookID, "Title": book.Title });
+        
     }
 
     $scope.availingBook = function (book, evt) {
         console.log("trying to free book.., book:", book);
-        $scope.availableAuthorBooks.push(book);
+        //$scope.availableAuthorBooks.push(book);
+        //change to non mock and add rest
+        $scope.availableAuthorBooks = $scope.availableAuthorBooks.concat(book);
 
-        $scope.borrowedAuthorBooks = $filter('filter')($scope.borrowedAuthorBooks, { BookID: book.BookID }, true)
+        angular.forEach($scope.borrowedAuthorBooks, function (value, key) {
+            if (value.BookID == book.BookID) {
+                delete $scope.borrowedAuthorBooks[key];
+            }
+
+        });
+        //$scope.availableAuthorBooks.push({ "BookID": book.BookID, "Title": book.Title });
 
     }
 
     
-
-
     $scope.data = $http
           .get("http://localhost:49893/app/services/WebService.asmx/HelloBooks")
            .then(function (response) {
@@ -52,9 +66,11 @@ function ($scope,$http,$filter) {
     $scope.booksFromAuthorShown = false;
     $scope.draggieDroppie = false;
 
-    $scope.borrowedAuthorBooks = []
-    $scope.availableAuthorBooks = []
-
+    $scope.borrowedAuthorBooks = [];
+    $scope.borrowedAuthorBooks = {{"0": "BookID": "9", "Title": "hitchhiker" },1:{ "BookID": "10", "Title": "ilijada" }};
+    $scope.availableAuthorBooks = [];
+    //$scope.availableAuthorBooks = JSON.parse($scope.availableAuthorBooks);
+    //$scope.borrowedAuthorBooks = JSON.parse($scope.borrowedAuthorBooks);
 
     //mock data, ask for remote db connection
     //$scope.authors = {
