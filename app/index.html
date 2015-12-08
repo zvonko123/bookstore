@@ -96,11 +96,12 @@
                     <!-- TAB KOSARICA -->
 
                     <h3 class="text-center">Borrowed Books</h3><br />
-                    <div id='containment-wrapper'>
-                        <div id='borrowedBooksDiv' class='bookstore-panels clearfix'>
+                    <div id='containment-wrapper' ng-drop="true" ng-drop-success="borrowingBook($data,$event)">
+                       
+                        <div id='borrowedBooksDiv' ng-drop-success="borrowingBook($data,$event)" class='bookstore-panels clearfix'>
 
-                            <div ng-drag="true" ng-drag-data="{{borrowedBook}}" ng-drag-success="onDragComplete($data,$event)"
-                              ng-repeat="borrowedBook in borrowedAuthorBooks">
+                            <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{borrowedBook}}"
+                                 ng-repeat="borrowedBook in borrowedAuthorBooks">
                                 <div class="bookstore-panel-logo">
                                     <img alt={{borrowedBook.Title}} class="monochrome vertical-center" src={{borrowedBook.CoverImage}} draggable="true">
                                 </div>
@@ -109,9 +110,9 @@
                         </div>
 
                         <h3 class="text-center">Available Books</h3><br>
-                        <div  id='availableBooksDiv' class="bookstore-panels">
+                        <div id='availableBooksDiv' ng-drop-success="availingBook($data,$event)" class="bookstore-panels">
 
-                            <div ng-drag="true" ng-drag-data="{{availableBook}}" ng-drag-success="onDragComplete($data,$event)" 
+                            <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{availableBook}}" ng-drag-success="onDragComplete($data,$event)"
                                  ng-repeat="availableBook in availableAuthorBooks">
                                 <div class=" bookstore-panel-logo">
                                     <img alt={{availableBook.Title}} class="monochrome vertical-center" src={{availableBook.CoverImage}} draggable="true">

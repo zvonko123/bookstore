@@ -2,7 +2,20 @@
 
 angular.module('bookstoreApp').controller('bookstoreCtrl',
 function ($scope,$http) {
+   //borrowing and availing books, add new book copy method (copyBook)
+    $scope.borrowingBook = function (book, evt) {
+        console.log("trying to borrow book.., book:", book);
+        
+            $scope.availableAuthorBooks.pop(book);
+            $scope.borrowedAuthorBooks.push(book);
+    }
 
+    $scope.availingBook = function (book, evt) {
+        console.log("trying to free book.., book:", book);
+        
+            $scope.borrowedAuthorBooks.pop(book);
+            $scope.availableAuthorBooks.push(book);
+    }
 
     $scope.data = $http
           .get("http://localhost:49893/app/services/WebService.asmx/HelloBooks")
