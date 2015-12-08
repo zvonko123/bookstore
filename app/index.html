@@ -15,60 +15,66 @@
     <script src="../angular-datatables.min.js"></script>
     <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">-->
      <link rel="stylesheet" type="text/css" href="../Content/bootstrap.min.css">
-
+    <link rel="stylesheet" type="text/css" href="../Content/datatables.min.css" />
 
 </head>
 <body>
-    <button ng-model="buttonAuthor" class="btn btn-default btn-lg"/>
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+    
+        <span class="glyphicon glyphicon-alert"></span>
+        <span class="glyphicon glyphicon-alert"></span>
+        <span class="glyphicon glyphicon-alert"></span>
         <br />
 
         <br />
         <div>
-            <div ng-app="bookstoreApp" ng-controller="bookstoreCtrl">
+            <div ng-app="bookstoreApp" class="table table-striped table-bordered" ng-controller="bookstoreCtrl">
+                <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                    <table datatable="ng" class="row-border hover">
 
-                <table datatable="ng" class="row-border hover">
-                    <thead>
-                        <tr>
-                            <th>index</th>
-                            <th>firstName</th>
-                            <th>lastName</th>
+                        <thead class="row">
+                            <tr>
 
-                            <th>add new book</th>
-                        </tr>
-                    </thead>
+                                <th>ID</th>
+                                <th>firstName</th>
+                                <th>lastName</th>
 
-                    <tbody>
-                        <tr ng-repeat="x in authors">
-                            <td>{{ $index+1}}</td>
-                            <td>{{ x.FirstName }}</td>
-                            <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
-                            <td>
-                                <button id="{{$index}}" ng-click="showNewBookForm($index)" class="glyphicon-plus-sign" />
-                                    
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                <th>add new book</th>
+                            </tr>
+                        </thead>
 
-                <div ng-show='bookFormShown' id="NewBookForm">
-                    <form>
-                        <label>Author</label>
-                        <input type="text" id="bookFormAutor" ng-model="formAuthor" /><br />
-                        <label>Book</label>
-                        <input type="text" id="bookFormBook" /><br />
-                    </form>
+
+
+                        <tbody>
+                            <tr ng-repeat="x in authors">
+                                <td>{{ x.AuthorID}}</td>
+                                <td>{{ x.FirstName }}</td>
+                                <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
+                                <td>
+                                    <button id="{{x.AuthorID}}" ng-click="showNewBookForm(x.AuthorID)" class="glyphicon-plus-sign"></button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-show="bookFormShown">
+
+                    <label>Author:{{$scope.formAuthor}}</label>
+                    <input type="text" id="bookFormAutor" ng-model="formAuthor" /><br />
+                    <label>Book</label>
+                    <input type="text" id="bookFormBook" /><br />
+
                 </div>
 
                 <div ng-show='booksFromAuthorShown' class='col-md-9' id="booksFromAuthor">
                     <label>Books:{{$scope.formAuthor}}</label>
-                    
-                        
-                        <ul class="bs-glyphicons-list">
-                            <li ng-repeat="book in books"><span class="glyphicon-class">{{book}}</span></li>
-                        </ul>
-                    </div>
+
+
+                    <ul class="bs-glyphicons-list">
+                        <li ng-repeat="book in books"><span class="glyphicon-class">{{book}}</span></li>
+                    </ul>
                 </div>
+            </div>
 
             </div>
         </div>
