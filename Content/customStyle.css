@@ -45,10 +45,16 @@ color: #fff;
 	/*-moz-border-radius: 30px;  Disabled for FF1+ */
 	}	
 
-#borrowedBooksDiv { width: 100%; height:150px;  padding: 10px; }
-#availableBooksDiv {  width: 100%; height:150px;  padding: 10px;  }
+#borrowedBooksDiv { 
+    background-color:lavender;
+     width: 100%; height:150px;  padding: 10px; }
+#availableBooksDiv {
+    background-color:lightblue;  
+    border:10px;
+    width: 100%; height:150px;  padding: 10px;  }
 
 .cent{
+    color:lightblue;
 	text-align: center;
 }
 

@@ -1,21 +1,27 @@
 ﻿var demoApp = angular.module('bookstoreApp', ['datatables','ngDraggable']);
 
 angular.module('bookstoreApp').controller('bookstoreCtrl',
-function ($scope,$http) {
-   //borrowing and availing books, add new book copy method (copyBook)
+function ($scope,$http,$filter) {
+
+    //borrowing and availing books, add new book copy method and user box(copyBook)
     $scope.borrowingBook = function (book, evt) {
         console.log("trying to borrow book.., book:", book);
-        
-            $scope.availableAuthorBooks.pop(book);
-            $scope.borrowedAuthorBooks.push(book);
+        $scope.borrowedAuthorBooks.push(book);
+
+        $scope.availableAuthorBooks = $filter('filter')($scope.availableAuthorBooks, { BookID: book.BookID }, true)
+
     }
 
     $scope.availingBook = function (book, evt) {
         console.log("trying to free book.., book:", book);
-        
-            $scope.borrowedAuthorBooks.pop(book);
-            $scope.availableAuthorBooks.push(book);
+        $scope.availableAuthorBooks.push(book);
+
+        $scope.borrowedAuthorBooks = $filter('filter')($scope.borrowedAuthorBooks, { BookID: book.BookID }, true)
+
     }
+
+    
+
 
     $scope.data = $http
           .get("http://localhost:49893/app/services/WebService.asmx/HelloBooks")
@@ -59,7 +65,7 @@ function ($scope,$http) {
 
    $scope.showBookBasket = function (id) {
        window.alert("Your about to view books from author !");
-       $scope.bookFormShown = true;
+       
        $scope.findAuthor(id)
        console.log($scope);
 
@@ -84,10 +90,7 @@ function ($scope,$http) {
        //$scope.availableAuthorBooks = $scope.formAuthor.Book;
 
     }
-   $scope.applyDrag = function () {
-       console.log("applying draggable");
-       
-   };
+   
     //we wont need this later
    $scope.showBooksFromAuthor = function (id) {
        window.alert("displayed books from author");
