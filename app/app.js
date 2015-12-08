@@ -4,9 +4,6 @@ angular.module('bookstoreApp').controller('bookstoreCtrl',
 function ($scope,$http) {
 
 
-
-   
-
     $scope.data = $http
           .get("http://localhost:49893/app/services/WebService.asmx/HelloBooks")
            .then(function (response) {
@@ -35,7 +32,8 @@ function ($scope,$http) {
     $scope.bookFormShown = false;
     $scope.booksFromAuthorShown = false;
     $scope.draggieDroppie = false;
-
+    $scope.availableAuthorBooks = []
+    $scope.borrowedAuthorBooks = []
 
     //mock data, ask for remote db connection
     //$scope.authors = {
@@ -44,19 +42,39 @@ function ($scope,$http) {
        //"2": { "FirstName": "tin", "LastName": "ujevic" },
     //}
 
-   $scope.showBookForm = function (id) {
+   $scope.showBookBasket = function (id) {
        window.alert("Your about to view books from author !");
        $scope.bookFormShown = true;
        $scope.findAuthor(id)
        console.log($scope);
+
+       for (b in $scope.fromAuthor.Book)
+       {
+           console.log("logiram knjige kliknutog autora", $scope.fromAuthor.Book[b]);
+           //fetch all books from author and push them into array if they are borrowed and/or available
+           //below add logic if library has more than 1 of the same book
+           if ($scope.fromAuthor.Book[b].LentToMemberID === null)
+           {
+               $scope.availableAuthorBooks.push($scope.fromAuthor.Book[b])
+            }
+           else {
+               $scope.borrowedAuthorBooks.push($scope.fromAuthor.Book[b])
+           }
+
+       }
+       $scope.draggieDroppie = true;
+       //$scope.borrowedAuthorBooks = $scope.formAuthor.Book;
+       //$scope.availableAuthorBooks = $scope.formAuthor.Book;
    }
 
+    //we wont need this later
    $scope.showBooksFromAuthor = function (id) {
        window.alert("displayed books from author");
        $scope.booksFromAuthorShown = true;
        $scope.draggieDroppie = true;
        $scope.findAuthor(id)
        console.log($scope);
+       
        
 
         
@@ -67,7 +85,7 @@ function ($scope,$http) {
        {
            //console.log(a);
            if ($scope.authors[a].AuthorID == id)
-               $scope.formAuthor = $scope.authors[a];
+               $scope.fromAuthor = $scope.authors[a];
                 }
        
    }

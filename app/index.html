@@ -16,7 +16,7 @@
     <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">-->
      <link rel="stylesheet" type="text/css" href="../Content/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../Content/datatables.min.css" />
-
+    <link rel="stylesheet" type="text/css" href="../Content/customStyle.css" />
 </head>
 <body>
     
@@ -39,7 +39,7 @@
                             <th>firstName</th>
                             <th>lastName</th>
 
-                            <th>Draggie Droppie rest</th>
+                            <th>Draggie Droppie</th>
                         </tr>
                     </thead>
 
@@ -51,7 +51,7 @@
                             <td>{{ x.FirstName }}</td>
                             <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
                             <td>
-                                <button id="{{x.AuthorID}}" ng-click="showBookForm(x.AuthorID)" class="glyphicon-plus-sign"></button>
+                                <button id="{{x.AuthorID}}" ng-click="showBookBasket(x.AuthorID)" class="glyphicon-plus-sign">{{x.LastName}}'s Basket</button>
 
                             </td>
                         </tr>
@@ -88,17 +88,17 @@
                 </ul>
             </div>-->
             <!-- refactor this to fit angular and VS service -->
-            <div ng-show="bookFormShown">
+            <div ng-show="draggieDroppie">
                 <div class="tab-content">
-                    <!-- TAB BRANDS -->
+                    <!-- TAB KOSARICA -->
                     <div class="tab-pane active" id="brands">
                         <h3 class="text-center">Borrowed Books</h3><br />
-                        <div id='BorrowedBookPanel'>
+                        <div id='BooksPanel'>
                             <div id='borrowedBooksDiv' class='bookstore-panels clearfix'>
 
                                 <div ng-repeat="borrowedBook in $scope.borrowedAuthorBooks" class="drag ui-widget-content bookstore-panel col-xs-3">
                                     <div class="bookstore-panel-logo">
-                                        <img alt=borrowedBook.title class="monochrome vertical-center" src=borrowedBook.CoverImage draggable="true">
+                                        <img alt=borrowedBook.Title class="monochrome vertical-center" src=borrowedBook.CoverImage draggable="true">
                                     </div>
                                 </div>
                                 
@@ -109,13 +109,13 @@
 
                                 <div ng-repeat="availableBook in $scope.availableAuthorBooks" class="drag ui-widget-content bookstore-panel col-xs-3">
                                     <div class="bookstore-panel-logo">
-                                        <img alt=availableBook.title class="monochrome vertical-center" src=availableBook.CoverImage draggable="true">
+                                        <img alt=availableBook.Title class="monochrome vertical-center" src=availableBook.CoverImage draggable="true">
                                     </div>
                                 </div>
                                
                             </div>
                         </div>
-                        <!-- END TAB BRANDS -->
+                        <!-- END TAB KOSARICA -->
                     </div>
 
                     <!--END refactor this to fit angular and VS service -->
@@ -135,25 +135,22 @@
                     drop: function (event, ui) {
                         ui.draggable.draggable();
                         var id = ui.draggable.attr('alt');
-                        $scope.books = $http
+                        $scope.borrowBooks = $http
                         .get("http://localhost:49893/app/services/WebService.asmx/BorrowBook")
                         .then(function (response) {
-                            $scope.books = response.data;
-                            //$scope.authors = jQuery.xml2json($scope.authors)
-                            $scope.members = $scope.members.slice(76, -9)
-                            $scope.members = JSON.parse($scope.members)
-                            console.log("memberi s posudjenim knjigama<br>", $scope.members);
+                            $scope.borrowedBook = 
+                            console.log("Posudjujem knjigu<br>", $scope.borrowedBook);
 
 
                         }
                 ).then(function successCallback(response) {
                     // this callback will be called asynchronously
                     // when the response is available
-                    console.log("success borrowing borowing");
+                    console.log("success borrowing book");
                 }, function errorCallback(response) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
-                    console.log("success borrowing borowing");
+                    console.log("failed borrowing book");
                 });
                     }
                 });
@@ -167,20 +164,20 @@
                         $scope.books = $http
                         .get("http://localhost:49893/app/services/WebService.asmx/FreeBook")
                         .then(function (response) {
-                            $scope.books = response.data;
-                            //$scope.authors = jQuery.xml2json($scope.authors)
-                            $scope.members = $scope.members.slice(76, -9)
-                            $scope.members = JSON.parse($scope.members)
-                            console.log("memberi s posudjenim knjigama<br>", $scope.members);
+                            $scope.availableBook = response.data;
+                            
+                            console.log("Vracam knjigu<br>", $scope.availableBook);
 
 
                         }
                 ).then(function successCallback(response) {
                     // this callback will be called asynchronously
                     // when the response is available
+                    console.log("success availing book");
                 }, function errorCallback(response) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
+                    console.log("failed availing book");
                 });
                     }
                 });
