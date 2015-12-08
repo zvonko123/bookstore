@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Authors</title>
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../Scripts/jquery-1.9.1.min.js"></script>
+    <script src="../Scripts/jquery-ui-1.11.4.min.js"></script>
     <script src="../Scripts/angular.min.js"></script>
-    <script src="../Scripts/jquery.xml2json.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
                     <!--<script src="modules.js"></script>-->
     <script src="app.js"></script>
-
+    <script src="../Scripts/ngDraggable.js"></script>
+    
     <!-- datatables reference -->
     <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
     <script src="../angular-datatables.min.js"></script>
@@ -17,6 +17,7 @@
      <link rel="stylesheet" type="text/css" href="../Content/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../Content/datatables.min.css" />
     <link rel="stylesheet" type="text/css" href="../Content/customStyle.css" />
+    
 </head>
 <body>
     
@@ -51,7 +52,7 @@
                             <td>{{ x.FirstName }}</td>
                             <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
                             <td>
-                                <button id="{{x.AuthorID}}" ng-click="showBookBasket(x.AuthorID)" class="glyphicon-plus-sign">{{x.LastName}}'s Basket</button>
+                                <button id="{{x.AuthorID}}" ng-click="showBookBasket(x.AuthorID);applyDrag()" class="glyphicon-plus-sign">{{x.LastName}}'s Basket</button>
 
                             </td>
                         </tr>
@@ -98,7 +99,8 @@
                     <div id='containment-wrapper'>
                         <div id='borrowedBooksDiv' class='bookstore-panels clearfix'>
 
-                            <div ng-repeat="borrowedBook in borrowedAuthorBooks" class="drag">
+                            <div ng-drag="true" ng-drag-data="{{borrowedBook}}" ng-drag-success="onDragComplete($data,$event)"
+                              ng-repeat="borrowedBook in borrowedAuthorBooks">
                                 <div class="bookstore-panel-logo">
                                     <img alt={{borrowedBook.Title}} class="monochrome vertical-center" src={{borrowedBook.CoverImage}} draggable="true">
                                 </div>
@@ -107,10 +109,11 @@
                         </div>
 
                         <h3 class="text-center">Available Books</h3><br>
-                        <div id='availableBooksDiv' class="bookstore-panels">
+                        <div  id='availableBooksDiv' class="bookstore-panels">
 
-                            <div ng-repeat="availableBook in availableAuthorBooks" class="drag" col-xs-3">
-                                <div class="bookstore-panel-logo">
+                            <div ng-drag="true" ng-drag-data="{{availableBook}}" ng-drag-success="onDragComplete($data,$event)" 
+                                 ng-repeat="availableBook in availableAuthorBooks">
+                                <div class=" bookstore-panel-logo">
                                     <img alt={{availableBook.Title}} class="monochrome vertical-center" src={{availableBook.CoverImage}} draggable="true">
                                 </div>
                             </div>
@@ -124,73 +127,12 @@
             </div>
         </div>
 
-
-        <script>
-            
-         </script>
-        <script>
-            $("#BorrowedBooksPanel").droppable({
-                activeClass: "ui-state-hover",
-                hoverClass: "ui-state-active",
-                drop: function (event, ui) {
-                    ui.draggable.draggable();
-                    var id = ui.draggable.attr('alt');
-                    $scope.borrowBooks = $http
-                    .get("http://localhost:49893/app/services/WebService.asmx/BorrowBook")
-                    .then(function (response) {
-                        $scope.borrowedBook =
-                        console.log("Posudjujem knjigu<br>", $scope.borrowedBook);
-
-
-                    }
-            ).then(function successCallback(response) {
-                // this callback will be called asynchronously
-                // when the response is available
-                console.log("success borrowing book");
-            }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                console.log("failed borrowing book");
-            });
-                }
-            });
-
-            $("#AvailableBooksPanel").droppable({
-                activeClass: "ui-state-hover",
-                hoverClass: "ui-state-active",
-                drop: function (event, ui) {
-                    ui.draggable.draggable();
-                    var id = ui.draggable.attr('alt');
-                    $scope.books = $http
-                    .get("http://localhost:49893/app/services/WebService.asmx/FreeBook")
-                    .then(function (response) {
-                        $scope.availableBook = response.data;
-
-                        console.log("Vracam knjigu<br>", $scope.availableBook);
-
-
-                    }
-            ).then(function successCallback(response) {
-                // this callback will be called asynchronously
-                // when the response is available
-                console.log("success availing book");
-            }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                console.log("failed availing book");
-            });
-                }
-            });
-
-        </script>
+       
+   
     </div>
     </div>
 
-    <script>
-    $(function () {
-        $(".drag").draggable({ containment: "#containment-wrapper", scroll: false, snap: "#availableBooksDiv,#borrowedBooksDiv", snapMode: "inner" });
-    });
-    </script>
+    
 
 </body>
 </html>

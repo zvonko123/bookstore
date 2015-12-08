@@ -1,4 +1,4 @@
-﻿var demoApp = angular.module('bookstoreApp', ['datatables']);
+﻿var demoApp = angular.module('bookstoreApp', ['datatables','ngDraggable']);
 
 angular.module('bookstoreApp').controller('bookstoreCtrl',
 function ($scope,$http) {
@@ -70,9 +70,11 @@ function ($scope,$http) {
        //$scope.borrowedAuthorBooks = $scope.formAuthor.Book;
        //$scope.availableAuthorBooks = $scope.formAuthor.Book;
 
+    }
+   $scope.applyDrag = function () {
+       console.log("applying draggable");
        
-   }
-
+   };
     //we wont need this later
    $scope.showBooksFromAuthor = function (id) {
        window.alert("displayed books from author");
