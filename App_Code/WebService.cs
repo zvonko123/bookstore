@@ -44,5 +44,30 @@ public class WebService : System.Web.Services.WebService {
 
         
     }
+
+    [WebMethod]
+    public string HelloCustomers()
+    {
+        using (var tdb = new Database("server=DATA;database=STIMAC_BOOKSTORE;user id=stimac_user; password=stimac_user;"))
+        {
+            var sviMemberi = tdb.Member.ToList();
+            Dictionary<int, Member> sviMemberiLista = new Dictionary<int, Member>();
+            int i = sviMemberiLista.Count;
+            foreach (var a in sviMemberi)
+            {
+                i--;
+                sviMemberiLista.Add(i,a);
+            }
+
+
+
+            return JsonConvert.SerializeObject(sviMemberiLista, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            }); ;
+        }
+
+
+    }
     
 }

@@ -17,9 +17,22 @@ function ($scope,$http) {
                console.log($scope.authors);
 
                 
-          });
+           });
+
+
+    $scope.members = $http
+          .get("http://localhost:49893/app/services/WebService.asmx/HelloCustomers")
+           .then(function (response) {
+               $scope.members = response.data;
+               //$scope.authors = jQuery.xml2json($scope.authors)
+               
+
+
+           });
+
     $scope.bookFormShown = false;
     $scope.booksFromAuthorShown = false;
+
 
 
     //mock data, ask for remote db connection
@@ -29,8 +42,8 @@ function ($scope,$http) {
        //"2": { "FirstName": "tin", "LastName": "ujevic" },
     //}
 
-   $scope.showNewBookForm = function (id) {
-       window.alert("Your about to add a new book !");
+   $scope.showBookForm = function (id) {
+       window.alert("Your about to view books from author !");
        $scope.bookFormShown = true;
        $scope.findAuthor(id)
        console.log($scope);

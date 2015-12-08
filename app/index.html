@@ -50,20 +50,32 @@
                                 <td>{{ x.FirstName }}</td>
                                 <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
                                 <td>
-                                    <button id="{{x.AuthorID}}" ng-click="showNewBookForm(x.AuthorID)" class="glyphicon-plus-sign"></button>
+                                    <button id="{{x.AuthorID}}" ng-click="showBookForm(x.AuthorID)" class="glyphicon-plus-sign"></button>
 
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                <hr />
+                <br /><br /><br />
+
                 <div ng-show="bookFormShown">
 
                     <label>Author:{{$scope.formAuthor}}</label>
-                    <input type="text" id="bookFormAutor" ng-model="formAuthor" /><br />
-                    <label>Book</label>
-                    <input type="text" id="bookFormBook" /><br />
-
+                    <input type="text" id="bookFormAutor" ng-model="formAuthor.LastName" /><br />
+                    <ng-form ng-model="$scope.authors"
+                    <label>Book:</label>
+                    <input type="text" id="bookFormTitle" /><br />
+                    <label>Genre:</label>
+                    <input type="text" id="bookFormGenre" /><br />
+                    <label>Lent:</label>
+                    <input type="checkbox" style="will-change" id="bookFormLent" /><br />
+                    <label>Customer</label>
+                        <input type="text" id="bookFormLentTo" ng-model="$scope.bookLentTo" />
+                        <br /
+                    <button  ng-submit class="glyphicon-apple"></button>
+                    </ng-form>
                 </div>
 
                 <div ng-show='booksFromAuthorShown' class='col-md-9' id="booksFromAuthor">
