@@ -34,7 +34,7 @@ function ($scope,$http) {
 
     $scope.bookFormShown = false;
     $scope.booksFromAuthorShown = false;
-
+    $scope.draggieDroppie = false;
 
 
     //mock data, ask for remote db connection
@@ -54,8 +54,10 @@ function ($scope,$http) {
    $scope.showBooksFromAuthor = function (id) {
        window.alert("displayed books from author");
        $scope.booksFromAuthorShown = true;
+       $scope.draggieDroppie = true;
        $scope.findAuthor(id)
        console.log($scope);
+       
 
         
    }
