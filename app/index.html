@@ -39,7 +39,7 @@
                             <th>firstName</th>
                             <th>lastName</th>
 
-                            <th>add new book</th>
+                            <th>Draggie Droppie rest</th>
                         </tr>
                     </thead>
 
@@ -92,29 +92,27 @@
                 <div class="tab-content">
                     <!-- TAB BRANDS -->
                     <div class="tab-pane active" id="brands">
-                        <h3 class="text-center"</h3>Borrowed Books<br />
+                        <h3 class="text-center">Borrowed Books</h3><br />
                         <div id='BorrowedBookPanel'>
-                            <div id='activepanels' class='bookstore-panels clearfix'>
+                            <div id='borrowedBooksDiv' class='bookstore-panels clearfix'>
 
                                 <div ng-repeat="borrowedBook in $scope.borrowedAuthorBooks" class="drag ui-widget-content bookstore-panel col-xs-3">
                                     <div class="bookstore-panel-logo">
-                                        <img alt="{{borrowedBook.title}}" class="monochrome vertical-center" src="{{borrowedBook.CoverImage}}" draggable="true">
+                                        <img alt=borrowedBook.title class="monochrome vertical-center" src=borrowedBook.CoverImage draggable="true">
                                     </div>
                                 </div>
-                                }
-                                }
+                                
 
                             </div>
                             <h3 class="text-center">Available Books</h3><br>
-                            <div id='AvailableBooksPanel' class="bookstore-panels">
+                            <div id='availableBooksDiv' class="bookstore-panels">
 
                                 <div ng-repeat="availableBook in $scope.availableAuthorBooks" class="drag ui-widget-content bookstore-panel col-xs-3">
                                     <div class="bookstore-panel-logo">
-                                        <img alt="{{availableBook.title}}" class="monochrome vertical-center" src="{{availableBook.CoverImage}}" draggable="true">
+                                        <img alt=availableBook.title class="monochrome vertical-center" src=availableBook.CoverImage draggable="true">
                                     </div>
                                 </div>
-                                }
-                                }
+                               
                             </div>
                         </div>
                         <!-- END TAB BRANDS -->
