@@ -32,8 +32,10 @@ function ($scope,$http) {
     $scope.bookFormShown = false;
     $scope.booksFromAuthorShown = false;
     $scope.draggieDroppie = false;
-    $scope.availableAuthorBooks = []
+
     $scope.borrowedAuthorBooks = []
+    $scope.availableAuthorBooks = []
+
 
     //mock data, ask for remote db connection
     //$scope.authors = {
@@ -63,8 +65,12 @@ function ($scope,$http) {
 
        }
        $scope.draggieDroppie = true;
+       console.log("available books from author", $scope.availableAuthorBooks)
+       console.log("borrowed books from author", $scope.borrowedAuthorBooks)
        //$scope.borrowedAuthorBooks = $scope.formAuthor.Book;
        //$scope.availableAuthorBooks = $scope.formAuthor.Book;
+
+       
    }
 
     //we wont need this later

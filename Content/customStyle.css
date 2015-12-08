@@ -58,3 +58,8 @@ color: #fff;
 .left{
 	float:left;
 }
+
+.authorLabelBasket{
+    text-align:center;
+    align-content:center;
+}
