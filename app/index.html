@@ -139,7 +139,7 @@
 
                         <div id='borrowedBooksDiv' ng-drop=true ng-drop-success="borrowingBook($data,$event)" class='bookstore-panels clearfix'>
 
-                            <div ng-repeat="borrowedBook in borrowedAuthorBooks track by $index">
+                            <div ng-repeat="borrowedBook in borrowedMemberBooks track by $index">
                                 <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{borrowedBook}}" class="bookstore-panel-logo">
                                     <img alt={{borrowedBook.Title}} class="monochrome vertical-center" src={{borrowedBook.CoverImage}}>
                                 </div>
@@ -151,8 +151,8 @@
                         <div id='availableBooksDiv' ng-drop="true" ng-drop-success="availingBook($data,$event)" class="bookstore-panels">
 
                             <div ng-repeat="availableBook in availableAuthorBooks track by $index">
-                                <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{availableBook}}" class="bookstore-panel-logo">
-                                    <img alt={{availableBook.Title}} class="monochrome vertical-center" src={{availableBook.CoverImage}}>
+                                <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{returnedBook}}" class="bookstore-panel-logo">
+                                    <img alt={{returnedBook.Title}} class="monochrome vertical-center" src={{returnedBook.CoverImage}}>
                                 </div>
                             </div>
 

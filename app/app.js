@@ -107,7 +107,7 @@ function ($scope,$http,$filter) {
             console.log("logiram knjige kliknutog membera(basket)", $scope.fromMember.Book[b]);
             //fetch all borrowed books from member and push them into array if they are borrowed and/or available
             //below add logic if library has more than 1 of the same book
-            $scope.borrowedMemberrBooks.push($scope.fromMember.Book[b])
+            $scope.borrowedMemberBooks.push($scope.fromMember.Book[b])
             
 
         }
