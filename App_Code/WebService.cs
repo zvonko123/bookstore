@@ -77,11 +77,11 @@ public class WebService : System.Web.Services.WebService {
         {
             var allAvailableBooks = tdb.Book.ToList();
             Dictionary<int, Book> allAvailableBooksFiltered = new Dictionary<int, Book>();
-            int i = allAvailableBooks.Count;
+            int i = 0;
             foreach (var a in allAvailableBooks)
             {
-                i--;
-                if (a.LentToMemberID != null)
+                i++;
+                if (a.LentToMemberID == null)
                 allAvailableBooksFiltered.Add(i, a);
             }
 

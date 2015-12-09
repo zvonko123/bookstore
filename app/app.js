@@ -55,7 +55,7 @@ function ($scope,$http,$filter) {
                //$scope.authors = jQuery.xml2json($scope.authors)
                $scope.allAvailableBooks = $scope.allAvailableBooks.slice(76, -9)
                $scope.allAvailableBooks = JSON.parse($scope.allAvailableBooks);
-               console.log("available books for active member:", $scope.allAvailableBooks);
+               console.log("available(free) books for active member:", $scope.allAvailableBooks);
 
 
            });
