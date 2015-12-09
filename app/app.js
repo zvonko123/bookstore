@@ -92,6 +92,7 @@ function ($scope,$http,$filter) {
     $scope.booksFromAuthorShown = false;
     $scope.draggieDroppie = false;
     $scope.membersTableShow = false;
+    $scope.authorsTableShow = false;
     $scope.draggieDroppieMember = false
 
     $scope.showMembers = function () {
@@ -99,6 +100,14 @@ function ($scope,$http,$filter) {
             $scope.membersTableShow = false;
         } else {
             $scope.membersTableShow = true;
+        }
+    };
+
+    $scope.showAuthors = function () {
+        if ($scope.authorsTableShow === true) {
+            $scope.authorsTableShow = false;
+        } else {
+            $scope.authorsTableShow = true;
         }
     };
     //$scope.borrowedAuthorBooks = {{"0": "BookID": "9", "Title": "hitchhiker" },1:{ "BookID": "10", "Title": "ilijada" }};
@@ -134,6 +143,7 @@ function ($scope,$http,$filter) {
         }
         console.log("available books from Member", $scope.allBooks)
         console.log("borrowed books from Member", $scope.borrowedAuthorBooks)
+
         //$scope.borrowedAuthorBooks = $scope.formAuthor.Book;
         //$scope.availableAuthorBooks = $scope.formAuthor.Book;
 

@@ -25,7 +25,7 @@
    
     <div ng-app="bookstoreApp" ng-controller="bookstoreCtrl">
         <span ng-click="showMembers()"class="glyphicon glyphicon-alert"></span>
-        <span class="glyphicon glyphicon-asterisk"></span>
+        <span ng-click="showAuthors()" class="glyphicon glyphicon-asterisk"></span>
         <span class="glyphicon glyphicon-apple"></span>
         <br />
 
@@ -55,7 +55,7 @@
                                 <td>{{ x.FirstName }}</td>
                                 <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
                                 <td>
-                                    <button id="{{x.MemberID}}" ng-click="showBookBasketforMember(x.MemberID)" class="glyphicon-plus-sign">{{x.LastName}}'s Basket</button>
+                                    <button id="{{x.MemberID}}" ng-click="showBookBasketforMember(x.MemberID)" class="glyphicon-plus-sign">{{x.FirstName}}'s Basket</button>
 
                                 </td>
                             </tr>
@@ -67,40 +67,43 @@
             </div>
             </div>
 
-        <div class="table table-striped table-bordered">
-            <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                <table datatable="ng" class="row-border hover">
+        <div ng-show="authorsTableShow">
+            <div class="table table-striped table-bordered">
+                <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                    <table datatable="ng" class="row-border hover">
 
-                    <thead class="row">
-                        <tr>
+                        <thead class="row">
+                            <tr>
 
-                            <th>ID</th>
-                            <th>firstName</th>
-                            <th>lastName</th>
+                                <th>ID</th>
+                                <th>firstName</th>
+                                <th>lastName</th>
 
-                            <th>Draggie Droppie</th>
-                        </tr>
-                    </thead>
+                                <th>Draggie Droppie</th>
+                            </tr>
+                        </thead>
 
 
 
-                    <tbody>
-                        <tr ng-repeat="x in authors">
-                            <td>{{ x.AuthorID}}</td>
-                            <td>{{ x.FirstName }}</td>
-                            <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
-                            <td>
-                                <button id="{{x.AuthorID}}" ng-click="showBookBasket(x.AuthorID)" class="glyphicon-plus-sign">{{x.LastName}}'s Basket</button>
+                        <tbody>
+                            <tr ng-repeat="x in authors">
+                                <td>{{ x.AuthorID}}</td>
+                                <td>{{ x.FirstName }}</td>
+                                <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
+                                <td>
+                                    <button id="{{x.AuthorID}}" ng-click="showBookBasket(x.AuthorID)" class="glyphicon-plus-sign">{{x.LastName}}'s Basket</button>
 
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
             </div>
-            <hr />
-            <br /><br /><br />
+                <hr />
+                <br /><br /><br />
 
-            <!--<div ng-repeat="book in books" ng-show="bookFormShown">
+                <!--<div ng-repeat="book in books" ng-show="bookFormShown">
 
                 <label>Author:</label>
                 <input type="text" id="bookFormAutor" ng-model="formAuthor.LastName" /><br />
@@ -126,76 +129,76 @@
                     <li ng-repeat="book in books"><span class="glyphicon-class"></span></li>
                 </ul>
             </div>-->
-            <!-- refactor this to fit angular and VS service -->
+                <!-- refactor this to fit angular and VS service -->
 
-            <div ng-show="draggieDroppieMember">
-                <label class="authorLabelBasket">>>> {{fromMember.LastName}} <<<</label>
+                <div ng-show="draggieDroppieMember">
+                    <label class="authorLabelBasket">>>> {{fromMember.LastName}} <<<</label>
 
-                <div class="tab-content">
-                    <!-- TAB KOSARICA -->
+                    <div class="tab-content">
+                        <!-- TAB KOSARICA -->
 
-                    <h3 class="text-center">Borrowed Books</h3><br />
-                    <div id='containment-wrapper'>
-                        <input type="text" ng-model="filterBookString"" />
-                        <div id='borrowedBooksDiv' ng-drop=true ng-drop-success="borrowingBook($data,$event)" class='bookstore-panels clearfix'>
+                        <h3 class="text-center">Borrowed Books</h3><br />
+                        <div id='containment-wrapper'>
+                            <input type="text" ng-model="filterBookString" " />
+                            <div id='borrowedBooksDiv' ng-drop=true ng-drop-success="borrowingBook($data,$event)" class='bookstore-panels clearfix'>
 
-                            <div ng-repeat="borrowedBook in borrowedMemberBooks | filter:filterBookString">
-                                <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{borrowedBook}}" class="bookstore-panel-logo">
-                                    <img alt={{borrowedBook.Title}} class="monochrome vertical-center" src={{borrowedBook.CoverImage}}>
+                                <div ng-repeat="borrowedBook in borrowedMemberBooks | filter:filterBookString">
+                                    <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{borrowedBook}}" class="bookstore-panel-logo">
+                                        <img alt={{borrowedBook.Title}} class="monochrome vertical-center" src={{borrowedBook.CoverImage}}>
+                                    </div>
                                 </div>
+
                             </div>
 
-                        </div>
+                            <h3 class="text-center">Returned and Available Books</h3><br>
 
-                        <h3 class="text-center">Returned and Available Books</h3><br>
-                        
-                        <div ng-click="allBooks()" id='availableBooksDiv' ng-drop="true" ng-drop-success="availingBook($data,$event)" class="bookstore-panels">
-                            
-                            <div ng-repeat="availableBook in allAvailableBooks">
-                                <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{returnedBook}}" class="bookstore-panel-logo">
-                                    <img alt={{returnedBook.Title}} class="monochrome vertical-center" src={{returnedBook.CoverImage}}>
+                            <div ng-click="allBooks()" id='availableBooksDiv' ng-drop="true" ng-drop-success="availingBook($data,$event)" class="bookstore-panels">
+
+                                <div ng-repeat="availableBook in allAvailableBooks">
+                                    <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{returnedBook}}" class="bookstore-panel-logo">
+                                        <img alt={{returnedBook.Title}} class="monochrome vertical-center" src={{returnedBook.CoverImage}}>
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
+                        <!-- END TAB KOSARICA -->
                     </div>
-                    <!-- END TAB KOSARICA -->
                 </div>
-            </div>
 
-            <div ng-show="draggieDroppie">
-                <label class="authorLabelBasket">>>> {{fromAuthor.LastName}} <<<</label>
-                
-                <div class="tab-content">
-                    <!-- TAB KOSARICA -->
+                <div ng-show="draggieDroppie">
+                    <label class="authorLabelBasket">>>> {{fromAuthor.LastName}} <<<</label>
 
-                    <h3 class="text-center">Borrowed Books</h3><br />
-                    <div id='containment-wrapper'>
-                       
-                        <div id='borrowedBooksDiv' ng-drop=true ng-drop-success="borrowingBook($data,$event)" class='bookstore-panels clearfix'>
+                    <div class="tab-content">
+                        <!-- TAB KOSARICA -->
 
-                            <div ng-repeat="borrowedBook in borrowedAuthorBooks track by $index">
-                                <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{borrowedBook}}" class="bookstore-panel-logo">
-                                <img alt={{borrowedBook.Title}} class="monochrome vertical-center" src={{borrowedBook.CoverImage}}>
+                        <h3 class="text-center">Borrowed Books</h3><br />
+                        <div id='containment-wrapper'>
+
+                            <div id='borrowedBooksDiv' ng-drop=true ng-drop-success="borrowingBook($data,$event)" class='bookstore-panels clearfix'>
+
+                                <div ng-repeat="borrowedBook in borrowedAuthorBooks track by $index">
+                                    <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{borrowedBook}}" class="bookstore-panel-logo">
+                                        <img alt={{borrowedBook.Title}} class="monochrome vertical-center" src={{borrowedBook.CoverImage}}>
+                                    </div>
                                 </div>
+
                             </div>
 
-                        </div>
+                            <h3 class="text-center">Available Books</h3><br>
+                            <div id='availableBooksDiv' ng-drop="true" ng-drop-success="availingBook($data,$event)" class="bookstore-panels">
 
-                        <h3 class="text-center">Available Books</h3><br>
-                        <div id='availableBooksDiv' ng-drop="true" ng-drop-success="availingBook($data,$event)" class="bookstore-panels">
-
-                            <div ng-repeat="availableBook in availableAuthorBooks track by $index">
-                                <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{availableBook}}" class="bookstore-panel-logo">
-                                    <img alt={{availableBook.Title}} class="monochrome vertical-center" src={{availableBook.CoverImage}}>
+                                <div ng-repeat="availableBook in availableAuthorBooks track by $index">
+                                    <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{availableBook}}" class="bookstore-panel-logo">
+                                        <img alt={{availableBook.Title}} class="monochrome vertical-center" src={{availableBook.CoverImage}}>
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
+                        <!-- END TAB KOSARICA -->
                     </div>
-                    <!-- END TAB KOSARICA -->
                 </div>
-            </div>
                 <!--END refactor this to fit angular and VS service -->
             </div>
         </div>
