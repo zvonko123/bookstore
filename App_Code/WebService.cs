@@ -71,6 +71,32 @@ public class WebService : System.Web.Services.WebService {
     }
 
     [WebMethod]
+    public string AllAvailableBooks()
+    {
+        using (var tdb = new Database("server=DATA;database=STIMAC_BOOKSTORE;user id=stimac_user; password=stimac_user;"))
+        {
+            var allAvailableBooks = tdb.Book.ToList();
+            Dictionary<int, Book> allAvailableBooksFiltered = new Dictionary<int, Book>();
+            int i = allAvailableBooks.Count;
+            foreach (var a in allAvailableBooks)
+            {
+                i--;
+                if (a.LentToMemberID != null)
+                allAvailableBooksFiltered.Add(i, a);
+            }
+
+
+
+            return JsonConvert.SerializeObject(allAvailableBooksFiltered, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            }); ;
+        }
+
+
+    }
+
+    [WebMethod]
     public string ReturnBook(Book book_to_borrow,int member_id)
     {
         using (var tdb = new Database("server=DATA;database=STIMAC_BOOKSTORE;user id=stimac_user; password=stimac_user;"))

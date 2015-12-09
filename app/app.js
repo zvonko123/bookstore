@@ -43,9 +43,22 @@ function ($scope,$http,$filter) {
         
 
     }
-
+    
     $scope.allBooks = function () {
-        //we need filter droppie here
+        console.log("fetching all non-borrowed.., books:" );
+        //change book LentTo to null
+
+        $scope.allAvailableBooks= $http
+          .post("http://localhost:49893/app/services/WebService.asmx/AllAvailableBooks")
+           .then(function (response) {
+               $scope.allAvailableBooks = response.data;
+               //$scope.authors = jQuery.xml2json($scope.authors)
+               $scope.allAvailableBooks = $scope.allAvailableBooks.slice(76, -9)
+               $scope.allAvailableBooks = JSON.parse($scope.allAvailableBooks);
+               console.log("available books for active member:", $scope.allAvailableBooks);
+
+
+           });
     }
 
     $scope.data = $http

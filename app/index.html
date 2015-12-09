@@ -149,9 +149,9 @@
 
                         <h3 class="text-center">Returned and Available Books</h3><br>
                         
-                        <div id='availableBooksDiv' ng-drop="true" ng-drop-success="availingBook($data,$event)" class="bookstore-panels">
+                        <div ng-click="allBooks()" id='availableBooksDiv' ng-drop="true" ng-drop-success="availingBook($data,$event)" class="bookstore-panels">
                             
-                            <div ng-repeat="availableBook in availableAuthorBooks track by $index">
+                            <div ng-repeat="availableBook in allAvailableBooks">
                                 <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{returnedBook}}" class="bookstore-panel-logo">
                                     <img alt={{returnedBook.Title}} class="monochrome vertical-center" src={{returnedBook.CoverImage}}>
                                 </div>
