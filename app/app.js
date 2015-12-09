@@ -4,10 +4,10 @@ angular.module('bookstoreApp').controller('bookstoreCtrl',
 function ($scope,$http,$filter) {
 
     //borrowing and availing books, add new book copy method and member box
-    $scope.borrowingBook = function (book, evt) {
+    $scope.borrowingBook = function (bookAndMember, evt) {
         console.log("trying to borrow book.., book:", book);
         
-        $scope.borrowedMemberBooks = $scope.borrowedMemberBooks.concat(book);
+       //insert book into borrowed (change book lentTo to user id)
         $scope.borrowedMemberBooks = $http
           .post("http://localhost:49893/app/services/WebService.asmx/BorrowBook")
            .then(function (response) {
@@ -25,16 +25,16 @@ function ($scope,$http,$filter) {
 
     $scope.availingBook = function (book, evt) {
         console.log("trying to free book.., book:", book);
-         //change to non mock and add rest
-        $scope.borrowedMemberBooks = $scope.borrowedMemberBooks.concat(book);
-        $scope.borrowedMemberBooks = $http
-          .post("http://localhost:49893/app/services/WebService.asmx/BorrowBook")
+         //change book LentTo to null
+        
+        $scope.returnedMemberBooks = $http
+          .post("http://localhost:49893/app/services/WebService.asmx/ReturnBook")
            .then(function (response) {
-               $scope.borrowedMemberBooks = response.data;
+               $scope.returnedMemberBooks = response.data;
                //$scope.authors = jQuery.xml2json($scope.authors)
-               $scope.borrowedMemberBooks = $scope.authors.slice(76, -9)
-               $scope.borrowedMemberBooks = JSON.parse($scope.authors);
-               console.log("Borrowed books for active member:", $scope.borrowedMemberBooks);
+               $scope.returnedMemberBooks = $scope.authors.slice(76, -9)
+               $scope.returnedMemberBooks = JSON.parse($scope.authors);
+               console.log("Returned books for active member:", $scope.borrowedMemberBooks);
 
 
            });
@@ -104,15 +104,11 @@ function ($scope,$http,$filter) {
         $scope.availableMemberBooks = [];
         $scope.borrowedMemberBooks = [];
         for (b in $scope.fromMember.Book) {
-            console.log("logiram knjige kliknutog membera(basket)", $scope.fromAuthor.Book[b]);
-            //fetch all books from author and push them into array if they are borrowed and/or available
+            console.log("logiram knjige kliknutog membera(basket)", $scope.fromMember.Book[b]);
+            //fetch all borrowed books from member and push them into array if they are borrowed and/or available
             //below add logic if library has more than 1 of the same book
-            if ($scope.fromMember.Book[b].LentToMemberID === null) {
-                $scope.availableMemberBooks.push($scope.fromAuthor.Book[b])
-            }
-            else {
-                $scope.borrowedMemberrBooks.push($scope.fromAuthor.Book[b])
-            }
+            $scope.borrowedMemberrBooks.push($scope.fromMember.Book[b])
+            
 
         }
         if ($scope.draggieDroppieMember === true) {
@@ -174,7 +170,7 @@ function ($scope,$http,$filter) {
         
    }
    $scope.findMember = function (id) {
-       for (a in $scope.authors) {
+       for (a in $scope.members) {
            //console.log(a);
            if ($scope.members[a].MemberID == id)
                $scope.fromMember = $scope.members[a];
