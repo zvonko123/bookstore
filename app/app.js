@@ -9,7 +9,7 @@ function ($scope,$http,$filter) {
         
        //insert book into borrowed (change book lentTo to user id)
         $scope.borrowedMemberBooks = $http
-          .post("http://localhost:49893/app/services/WebService.asmx/BorrowBook")
+          .post("http://localhost:49893/app/services/WebService.asmx/BorrowBook").data(bookAndMember[0],bookAndMember[1])
            .then(function (response) {
                $scope.borrowedMemberBooks = response.data;
                //$scope.authors = jQuery.xml2json($scope.authors)
