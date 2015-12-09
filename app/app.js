@@ -14,7 +14,7 @@ function ($scope,$http,$filter) {
                $scope.borrowedMemberBooks = response.data;
                //$scope.authors = jQuery.xml2json($scope.authors)
                $scope.borrowedMemberBooks = $scope.authors.slice(76, -9)
-               $scope.borrowedMemberBooks = JSON.parse($scope.authors);
+               $scope.borrowedMemberBooks = JSON.parse($scope.borrowedMemberBooks);
                console.log("Borrowed books for active member:", $scope.borrowedMemberBooks);
 
 
@@ -71,6 +71,9 @@ function ($scope,$http,$filter) {
 
 
            });
+    
+    $scope.filterBookString
+
 
     $scope.bookFormShown = false;
     $scope.booksFromAuthorShown = false;
