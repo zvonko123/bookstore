@@ -69,5 +69,26 @@ public class WebService : System.Web.Services.WebService {
 
 
     }
+
+    [WebMethod]
+    public string ReturnBook(Book book_to_borrow,int member_id)
+    {
+        using (var tdb = new Database("server=DATA;database=STIMAC_BOOKSTORE;user id=stimac_user; password=stimac_user;"))
+        {
+            var allBorrowedBooks = tdb.Member.ToList();
+            Dictionary<int, Member> sviMemberiLista = new Dictionary<int, Member>();
+
+            var member = tdb.Member.First(i => i.MemberID == member_id);
+            member.Book.Add(book_to_borrow);
+            tdb.SubmitChanges();
+
+            return JsonConvert.SerializeObject(allBorrowedBooks, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            }); ;
+        }
+
+
+    }
     
 }
