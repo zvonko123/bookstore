@@ -81,12 +81,12 @@ public class WebService : System.Web.Services.WebService {
             //Select(i => new {BookID=i.BookID,Title = i.Title, })
             var allAvailableBooks = tdb.Book.ToList();
             Dictionary<int, Book> allAvailableBooksFiltered = new Dictionary<int, Book>();
-            int i = 0;
+            int index = 0;
             foreach (var a in allAvailableBooks)
             {
-                i++;
+                index++;
                 if (a.LentToMemberID == null)
-                allAvailableBooksFiltered.Add(i, a);
+                allAvailableBooksFiltered.Add(index, a);
             }
 
 
@@ -99,6 +99,35 @@ public class WebService : System.Web.Services.WebService {
 
 
     }
+
+    [WebMethod]
+    public string AllBorrowedBooks(string member_id)
+    {   //todo we only need books here, pitchfork
+        using (var tdb = new Database("server=DATA;database=STIMAC_BOOKSTORE;user id=stimac_user; password=stimac_user;"))
+        {
+            //Select(i => new {BookID=i.BookID,Title = i.Title, })
+            var allBorrowedBooks = tdb.Book.ToList();
+            Dictionary<int, Book> allBorrowedBooksFiltered = new Dictionary<int, Book>();
+            int index = 0;
+            foreach (var a in allBorrowedBooks)
+            {
+                index++;
+                if (a.LentToMemberID == int.Parse(member_id))
+                {
+                    allBorrowedBooksFiltered.Add(a.BookID, a);
+                }
+            }
+
+
+
+            return JsonConvert.SerializeObject(allBorrowedBooksFiltered, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            }); ;
+        }
+
+    }
+
 
     public class statusOK:Object
     {
