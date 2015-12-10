@@ -119,12 +119,17 @@ public class WebService : System.Web.Services.WebService {
     }
 
     [WebMethod]
-    public string BorrowBook(string memberAndBook)
+    public string BorrowBook(string member_id,string book_id)
     {
         using (var tdb = new Database("server=DATA;database=STIMAC_BOOKSTORE;user id=stimac_user; password=stimac_user;"))
         {
+            Console.Write("member and book"+member_id + book_id);
+            //string query = "UPDATE Book set LentToMemberID='" + member_id + "' where BookID ='" + book_id + "'";
+            //tdb.ExecuteQuery<Book>(query);
+            var bookToBorrow = tdb.Book.First(i => i.BookID == int.Parse(book_id));
+            bookToBorrow.LentToMemberID = int.Parse(member_id);
+            tdb.SubmitChanges();
             
-
         }
 
         return JsonConvert.SerializeObject(new statusOK());
