@@ -4,16 +4,16 @@ angular.module('bookstoreApp').controller('bookstoreCtrl',
 function ($scope,$http,$filter) {
 
     //borrowing and availing books, add new book copy method and member box
-    $scope.borrowingBook = function (bookAndMember, evt) {
-        console.log("trying to borrow book for member.., book:", bookAndMember[0],bookAndMember[1]);
+    $scope.borrowingBook = function (book, evt) {
+        console.log("trying to borrow book for member.., book:", $scope.fromMember.MemberID,book);
         bookAndMemberData = [];
-        bookAndMemberData[0] = bookAndMember.Book;
-        bookAndMemberData[1] = bookAndMember.Member;
+        bookAndMemberData[0] = book;
+        bookAndMemberData[1] = $scope.fromMember.MemberID;
         console.log("book and member for post", bookAndMemberData);
        //insert book into borrowed (change book lentTo to user id)
         $scope.borrowedMemberBooks = $http({
             method: 'POST',
-            url: 'http://localhost:49893/app/services/WebService.asmx/ReturnBook',
+            url: 'http://localhost:49893/app/services/WebService.asmx/BorrowBook',
             data: bookAndMemberData
         }).then(function (response) {
                $scope.borrowedMemberBooks = response.data;
