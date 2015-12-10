@@ -16,9 +16,9 @@ function ($scope,$http,$filter) {
         }).then(function (response) {
                
             $scope.hello();
-            $scope.showBookBasketforMember(); $scope.showBookBasketforMember(); //gettin dirty here, add transition ?
+             //gettin dirty here, add transition ?
 
-               console.log("Borrowed books for active member:", $scope.borrowedMemberBooks);
+            console.log("Borrowed books for active member:", $scope.borrowedMemberBooks);
            });
        
         
@@ -91,6 +91,22 @@ function ($scope,$http,$filter) {
            });
     }
 
+    $scope.helloMember = function (id) {
+        $scope.findMember(id)
+        //console.log($scope);
+        $scope.availableMemberBooks = [];
+        $scope.borrowedMemberBooks = [];
+        for (b in $scope.fromMember.Book) {
+
+            console.log("logiram knjige kliknutog membera(basket)", $scope.fromMember.Book[b]);
+            //fetch all borrowed books from member and push them into array if they are borrowed and/or available
+            //below add logic if library has more than 1 of the same book
+            $scope.borrowedMemberBooks.push($scope.fromMember.Book[b])
+
+
+        }
+    }
+
 
     $scope.hello();
     $scope.filterBookString
@@ -132,18 +148,7 @@ function ($scope,$http,$filter) {
     $scope.showBookBasketforMember = function (id) {
         //window.alert("Your about to view books from author !");
 
-        $scope.findMember(id)
-        //console.log($scope);
-        $scope.availableMemberBooks = [];
-        $scope.borrowedMemberBooks = [];
-        for (b in $scope.fromMember.Book) {
-            console.log("logiram knjige kliknutog membera(basket)", $scope.fromMember.Book[b]);
-            //fetch all borrowed books from member and push them into array if they are borrowed and/or available
-            //below add logic if library has more than 1 of the same book
-            $scope.borrowedMemberBooks.push($scope.fromMember.Book[b])
-            
-
-        }
+        $scope.helloMember(id);
         if ($scope.draggieDroppieMember === true) {
             $scope.draggieDroppieMember = false;
         } else {
