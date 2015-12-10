@@ -6,12 +6,15 @@ function ($scope,$http,$filter) {
     //borrowing and availing books, add new book copy method and member box
     $scope.borrowingBook = function (bookAndMember, evt) {
         console.log("trying to borrow book for member.., book:", bookAndMember[0],bookAndMember[1]);
-        
+        bookAndMemberData = [];
+        bookAndMemberData[0] = bookAndMember.Book;
+        bookAndMemberData[1] = bookAndMember.Member;
+        console.log("book and member for post", bookAndMemberData);
        //insert book into borrowed (change book lentTo to user id)
         $scope.borrowedMemberBooks = $http({
             method: 'POST',
             url: 'http://localhost:49893/app/services/WebService.asmx/ReturnBook',
-            data: bookAndMember
+            data: bookAndMemberData
         }).then(function (response) {
                $scope.borrowedMemberBooks = response.data;
                //$scope.authors = jQuery.xml2json($scope.authors)

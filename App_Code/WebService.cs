@@ -100,8 +100,26 @@ public class WebService : System.Web.Services.WebService {
 
     }
 
+    public class statusOK:Object
+    {
+        public string msg
+        {
+            get { 
+                return "1:success borrowing book"; }
+        }
+    }
+
+    public class statusFAIL:Object
+    {
+        public string msg
+        {
+            get { 
+                return "-1:failed with book operation. contact the devs"; }
+        }
+    }
+
     [WebMethod]
-    public string BorrowBook(Book book,Member member,int member_id)
+    public string BorrowBook(string memberAndBook)
     {
         using (var tdb = new Database("server=DATA;database=STIMAC_BOOKSTORE;user id=stimac_user; password=stimac_user;"))
         {
@@ -109,7 +127,7 @@ public class WebService : System.Web.Services.WebService {
 
         }
 
-        return 1;
+        return JsonConvert.SerializeObject(new statusOK());
     }
     
 }
