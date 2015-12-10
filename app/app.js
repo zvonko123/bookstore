@@ -57,7 +57,7 @@ function ($scope,$http,$filter) {
             url: 'http://localhost:49893/app/services/WebService.asmx/AllAvailableBooks'
             //,data: JSON.stringify({ member_id: $scope.fromMember.MemberID })
         }).then(function (response) {
-               console.log("avail response looks like", response);
+               //console.log("avail response looks like", response.data);
                $scope.allAvailableMemberBooks = [];
                $scope.allAvailableBooks = response.data;
                $scope.allAvailableBooks = $scope.allAvailableBooks.slice(76, -9)
@@ -76,15 +76,14 @@ function ($scope,$http,$filter) {
         $http({
             method: 'POST',
             url: 'http://localhost:49893/app/services/WebService.asmx/AllBorrowedBooks',
-            data: JSON.stringify({ member_id: $scope.fromMember.MemberID})
+            data: { member_id: $scope.fromMember.MemberID}
         }).then(function (response) {
-            console.log("borrowed response looks like", response.data.d);
-            //$scope.borrowedMemberBooks = ['asdf'];
+
             $scope.borrowedMemberBooks = response.data.d;
-            console.log("borrowedMemberbooks", $scope.borrowedMemberbooks);
-            //$scope.borrowedMemberBooks = $scope.borrowedMemberBooks.slice(76, -9)
-            //$scope.borrowedMemberBooks = JSON.parse($scope.borrowedMemberBooks);
-            console.log("..fetched..Borrowed books for active member:", $scope.borrowedMemberBooks);
+            $scope.borrowedMemberBooks = JSON.parse(response.data.d);
+
+           
+            console.log("borrowed response looks like", $scope.borrowedMemberBooks);
         });
     }
 
@@ -122,11 +121,12 @@ function ($scope,$http,$filter) {
         $scope.allAvailableBooks = [];
         //for (b in $scope.fromMember.Book) {
 
-        //    //console.log("borrowed books from clicked member:..", $scope.fromMember.Book[b]);
-        //    //fetch all borrowed books from member and push them into array if they are borrowed and/or available
-        //    //below add logic if library has more than 1 of the same book
-        //    $scope.borrowedMemberBooks.push($scope.fromMember.Book[b])
-
+        ////    //console.log("borrowed books from clicked member:..", $scope.fromMember.Book[b]);
+        ////    //fetch all borrowed books from member and push them into array if they are borrowed and/or available
+        //    //    //below add logic if library has more than 1 of the same book
+        //    for (b in $scope.fromMember.Book) {
+        //        $scope.borrowedMemberBooks.push($scope.fromMember.Book[b])
+        //    }
 
         //}
     }
