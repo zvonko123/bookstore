@@ -9,14 +9,14 @@ function ($scope,$http,$filter) {
         var bookAndMemberData = { "book_id": book.BookID, "member_id": $scope.fromMember.MemberID };
         console.log("book and member for post", bookAndMemberData);
        //insert book into borrowed (change book lentTo to user id)
-        $scope.borrowedMemberBooks = $http({
+        $http({
             method: 'POST',
             url: 'http://localhost:49893/app/services/WebService.asmx/BorrowBook',
             data: JSON.stringify({ member_id: $scope.fromMember.MemberID, book_id: book.BookID })
         }).then(function (response) {
                
             $scope.hello();
-             //gettin dirty here, add transition ?
+             
 
             console.log("Borrowed books for active member:", $scope.borrowedMemberBooks);
            });
@@ -28,17 +28,20 @@ function ($scope,$http,$filter) {
         console.log("trying to free book.., book:", book);
          //change book LentTo to null
         
-        $scope.returnedMemberBooks = $http
-          .post("http://localhost:49893/app/services/WebService.asmx/ReturnBook")
-           .then(function (response) {
-               $scope.returnedMemberBooks = response.data;
-               //$scope.authors = jQuery.xml2json($scope.authors)
-               $scope.returnedMemberBooks = $scope.authors.slice(76, -9)
-               $scope.returnedMemberBooks = JSON.parse($scope.authors);
-               console.log("Returned books for active member:", $scope.borrowedMemberBooks);
+        var bookAndMemberData = { "book_id": book.BookID, "member_id": $scope.fromMember.MemberID };
+        console.log("book and member for post", bookAndMemberData);
+        //insert book into borrowed (change book lentTo to user id)
+        $http({
+            method: 'POST',
+            url: 'http://localhost:49893/app/services/WebService.asmx/BorrowBook',
+            data: JSON.stringify({ member_id: null, book_id: book.BookID })
+        }).then(function (response) {
 
+            $scope.hello();
+            
 
-           });
+            console.log("Borrowed books for active member:", $scope.borrowedMemberBooks);
+        });
 
         
         
