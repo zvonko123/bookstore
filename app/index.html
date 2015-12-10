@@ -152,12 +152,14 @@
                             </div>
 
                             <h3 class="text-center">Returned and Available Books</h3><br>
+                            
                             <button ng-show="draggieDroppieMember" ng-click="allBooks()">Fetch All free books</button>
+                            
                             <div id='availableBooksDiv' ng-drop="true" ng-drop-success="availingBook($data,$event)" class="bookstore-panels">
 
-                                <div ng-repeat="returnedBook in allAvailableBooks[0] | filter:filterBookString">
-                                    <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{returnedBook}}" class="bookstore-panel-logo">
-                                        <img alt={{returnedBook.Title}} class="monochrome vertical-center" src={{returnedBook.CoverImage}}>
+                                <div ng-repeat="retBook in allAvailableBooks">
+                                    <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{retBook}}" class="bookstore-panel-logo">
+                                        <img alt={{retBook.Title}} class="monochrome vertical-center" src={{retBook.CoverImage}}>
                                     </div>
                                 </div>
 
@@ -202,12 +204,10 @@
                 </div>
                 <!--END refactor this to fit angular and VS service -->
             </div>
-        </div>
+       
 
        
    
-    </div>
-    </div>
 
     
 

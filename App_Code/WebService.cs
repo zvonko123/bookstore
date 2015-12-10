@@ -70,11 +70,15 @@ public class WebService : System.Web.Services.WebService {
 
     }
 
+
+    public class Book2 { }
+
     [WebMethod]
     public string AllAvailableBooks()
     {   //todo we only need books here, pitchfork
         using (var tdb = new Database("server=DATA;database=STIMAC_BOOKSTORE;user id=stimac_user; password=stimac_user;"))
-        {
+        {   
+            //Select(i => new {BookID=i.BookID,Title = i.Title, })
             var allAvailableBooks = tdb.Book.ToList();
             Dictionary<int, Book> allAvailableBooksFiltered = new Dictionary<int, Book>();
             int i = 0;
@@ -97,25 +101,15 @@ public class WebService : System.Web.Services.WebService {
     }
 
     [WebMethod]
-    public string ReturnBook(Book book_to_borrow,int member_id)
+    public string BorrowBook(Book book,Member member,int member_id)
     {
         using (var tdb = new Database("server=DATA;database=STIMAC_BOOKSTORE;user id=stimac_user; password=stimac_user;"))
         {
             
 
-            var member = tdb.Member.First(i => i.MemberID == member_id);
-            member.Book.Add(book_to_borrow);
-            tdb.SubmitChanges();
-            //Dictionary<int, Member> allBorrowedBooks = new Dictionary<int, Member>();
-            var allBorrowedBooks =  tdb.Book.All(i => i.LentToMemberID == member_id);
-            
-            return JsonConvert.SerializeObject(allBorrowedBooks, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            }); ;
         }
 
-
+        return 1;
     }
     
 }

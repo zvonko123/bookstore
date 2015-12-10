@@ -5,12 +5,14 @@ function ($scope,$http,$filter) {
 
     //borrowing and availing books, add new book copy method and member box
     $scope.borrowingBook = function (bookAndMember, evt) {
-        console.log("trying to borrow book.., book:", book);
+        console.log("trying to borrow book for member.., book:", bookAndMember[0],bookAndMember[1]);
         
        //insert book into borrowed (change book lentTo to user id)
-        $scope.borrowedMemberBooks = $http
-          .post("http://localhost:49893/app/services/WebService.asmx/BorrowBook").data(bookAndMember[0],bookAndMember[1])
-           .then(function (response) {
+        $scope.borrowedMemberBooks = $http({
+            method: 'POST',
+            url: 'http://localhost:49893/app/services/WebService.asmx/ReturnBook',
+            data: bookAndMember
+        }).then(function (response) {
                $scope.borrowedMemberBooks = response.data;
                //$scope.authors = jQuery.xml2json($scope.authors)
                $scope.borrowedMemberBooks = $scope.authors.slice(76, -9)
@@ -51,10 +53,13 @@ function ($scope,$http,$filter) {
         $scope.allAvailableBooks= $http
           .post("http://localhost:49893/app/services/WebService.asmx/AllAvailableBooks")
            .then(function (response) {
+              
                $scope.allAvailableBooks = response.data;
                //$scope.authors = jQuery.xml2json($scope.authors)
                $scope.allAvailableBooks = $scope.allAvailableBooks.slice(76, -9)
+               //console.log("allBooks response data:<br>", $scope.allAvailableBooks)
                $scope.allAvailableBooks = JSON.parse($scope.allAvailableBooks);
+               
                console.log("available(free) books for active member:", $scope.allAvailableBooks);
 
 
@@ -141,7 +146,8 @@ function ($scope,$http,$filter) {
         } else {
             $scope.draggieDroppieMember = true;
         }
-        console.log("available books from Member", $scope.allBooks)
+        
+        console.log("available books from Member", $scope.allAvailableBooks)
         console.log("borrowed books from Member", $scope.borrowedAuthorBooks)
 
         //$scope.borrowedAuthorBooks = $scope.formAuthor.Book;
