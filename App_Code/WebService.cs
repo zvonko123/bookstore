@@ -126,9 +126,21 @@ public class WebService : System.Web.Services.WebService {
             Console.Write("member and book"+member_id + book_id);
             //string query = "UPDATE Book set LentToMemberID='" + member_id + "' where BookID ='" + book_id + "'";
             //tdb.ExecuteQuery<Book>(query);
-            var bookToBorrow = tdb.Book.First(i => i.BookID == int.Parse(book_id));
-            bookToBorrow.LentToMemberID = int.Parse(member_id);
-            tdb.SubmitChanges();
+
+            //borrowing and availing in one service (null member means freeing book)
+            if (member_id == null)
+            {
+                var bookToBorrow = tdb.Book.First(i => i.BookID == int.Parse(book_id));
+                bookToBorrow.LentToMemberID = null;
+                tdb.SubmitChanges();
+            }
+            else
+            {
+                var bookToBorrow = tdb.Book.First(i => i.BookID == int.Parse(book_id));
+                bookToBorrow.LentToMemberID = int.Parse(member_id);
+                tdb.SubmitChanges();
+            
+            }
             
         }
 

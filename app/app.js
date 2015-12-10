@@ -16,8 +16,6 @@ function ($scope,$http,$filter) {
         }).then(function (response) {
                
             $scope.hello();
-             
-
             console.log("Borrowed books for active member:", $scope.borrowedMemberBooks);
            });
        
@@ -38,8 +36,6 @@ function ($scope,$http,$filter) {
         }).then(function (response) {
 
             $scope.hello();
-            
-
             console.log("Borrowed books for active member:", $scope.borrowedMemberBooks);
         });
 
