@@ -14,13 +14,11 @@ function ($scope,$http,$filter) {
             url: 'http://localhost:49893/app/services/WebService.asmx/BorrowBook',
             data: JSON.stringify({ member_id: $scope.fromMember.MemberID, book_id: book.BookID })
         }).then(function (response) {
-               $scope.borrowedMemberBooks = response.data;
-               //$scope.authors = jQuery.xml2json($scope.authors)
-               $scope.borrowedMemberBooks = $scope.borrowedMemberBooks.slice(76, -9)
-               $scope.borrowedMemberBooks = JSON.parse($scope.borrowedMemberBooks);
+               
+            $scope.hello();
+            $scope.showBookBasketforMember(); $scope.showBookBasketforMember(); //gettin dirty here, add transition ?
+
                console.log("Borrowed books for active member:", $scope.borrowedMemberBooks);
-
-
            });
        
         
@@ -79,8 +77,9 @@ function ($scope,$http,$filter) {
                 
            });
 
-
-    $scope.members = $http
+   
+    $scope.hello = function () {
+        $scope.members = $http
           .get("http://localhost:49893/app/services/WebService.asmx/HelloMembers")
            .then(function (response) {
                $scope.members = response.data;
@@ -90,7 +89,10 @@ function ($scope,$http,$filter) {
 
 
            });
-    
+    }
+
+
+    $scope.hello();
     $scope.filterBookString
 
 
