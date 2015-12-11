@@ -251,15 +251,21 @@ function ($scope,$http,$filter) {
        
    }
     //T0d0 add logic for finding available books for lending
-   $scope.findMembersAndAvailableBook = function (bookid) {
-       for (a in $scope.authors) {
-           //console.log(a);
-           if ($scope.members[a].MemberID == id)
-               $scope.formAuthor = $scope.authors[a];
-       }
+   //$scope.findMembersAndAvailableBook = function (bookid) {
+   //    for (a in $scope.authors) {
+   //        //console.log(a);
+   //        if ($scope.members[a].MemberID == id)
+   //            $scope.formAuthor = $scope.authors[a];
+   //    }
 
-   }
+   //}
   
+    //new features
+
+   $scope.submitNewBook() = function () {
+       //console log authorID,bookTitle,bookDesc
+   }
+
 
 });
 
