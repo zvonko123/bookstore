@@ -179,7 +179,7 @@
                         <h3 class="text-center">create new Book</h3><br />
                         <div id='containment-wrapper'>
                             <!-- -->
-                            <ng-form name="bookFieldForm">
+                            <form ng-submit="newBookSubmit()"name="bookFieldForm">
                                 <label>{{ fromAuthor.FirstName }}'s new book (id:{{fromAuthor.AuthorID}})</label><br /><br />
                                     <label>Author's first name</label>
                             <input type="text" class="form-control" name="FirstName" ng-model="fromAuthor.FirstName" required>
@@ -189,13 +189,13 @@
                                 <p class="help-block" ng-show="bookFieldForm.LastName.$invalid">Valid Last Name Required</p>
                                 <br />
                                     <label>new book title</label>
-                            <input type="text" class="form-control" name="Title" ng-model="newBook.BookTitle" required>
+                            <input type="text" class="form-control" name="Title" ng-model="newBook.Title" required>
                                 <p class="help-block" ng-show="bookFieldForm.LastName.$invalid">Valid Last Name Required</p> 
                                     <label>new book description</label>
-                            <input type="text" class="form-control" name="Title" ng-model="newBook.BookTitle" required>
+                            <input type="text" class="form-control" name="Description" ng-model="newBook.Description" required>
                                 <p class="help-block" ng-show="bookFieldForm.LastName.$invalid">Valid Last Name Required</p> 
-                            <button onsubmit="newBookSubmit()">create</button>
-                            </ng-form>
+                            <input type="submit" value="submit new book">
+                            </form>
 
                             <h3 class="text-center">Available Books</h3><br>
                             <div id='availableBooksDiv' ng-drop="true" ng-drop-success="availingBook($data,$event)" class="bookstore-panels">

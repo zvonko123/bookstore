@@ -5,29 +5,29 @@ function ($scope,$http,$filter) {
 
     //borrowing and availing books, add new book copy method and member box
     $scope.borrowingBook = function (book, evt) {
-        console.log("trying to borrow book for member..,", $scope.fromMember.MemberID,book);
+        console.log("trying to borrow book for member..,", $scope.fromMember.MemberID, book);
         var bookAndMemberData = { "book_id": book.BookID, "member_id": $scope.fromMember.MemberID };
         console.log("book and member for post", bookAndMemberData);
-       //insert book into borrowed (change book lentTo to user id)
+        //insert book into borrowed (change book lentTo to user id)
         $http({
             method: 'POST',
             url: 'http://localhost:49893/app/services/WebService.asmx/BorrowBook',
             data: JSON.stringify({ member_id: $scope.fromMember.MemberID, book_id: book.BookID })
         }).then(function (response) {
-               
+
             $scope.helloMember($scope.fromMember.MemberID);
             $scope.allBooks();
             $scope.allMemberBooks();
             console.log("Borrowed books for active member:", $scope.borrowedMemberBooks);
-           });
-       
-        
-    }
+        });
+
+
+    };
 
     $scope.availingBook = function (book, evt) {
         console.log("trying to free book.., book:", book);
-         //change book LentTo to null
-        
+        //change book LentTo to null
+
         var bookAndMemberData = { "book_id": book.BookID, "member_id": $scope.fromMember.MemberID };
         console.log("book and member for post", bookAndMemberData);
         //insert book into borrowed (change book lentTo to user id)
@@ -43,13 +43,13 @@ function ($scope,$http,$filter) {
             console.log("Borrowed books for active member:", $scope.borrowedMemberBooks);
         });
 
-        
-        
 
-    }
+
+
+    };
     
     $scope.allBooks = function () {
-        console.log("fetching all non-borrowed.., books:" );
+        console.log("fetching all non-borrowed.., books:");
         //change book LentTo to null
 
         $scope.allAvailableBooks = $http({
@@ -57,17 +57,17 @@ function ($scope,$http,$filter) {
             url: 'http://localhost:49893/app/services/WebService.asmx/AllAvailableBooks'
             //,data: JSON.stringify({ member_id: $scope.fromMember.MemberID })
         }).then(function (response) {
-               //console.log("avail response looks like", response.data);
-               $scope.allAvailableMemberBooks = [];
-               $scope.allAvailableBooks = response.data;
-               $scope.allAvailableBooks = $scope.allAvailableBooks.slice(76, -9)
-               $scope.allAvailableBooks = JSON.parse($scope.allAvailableBooks);
-               
-               console.log("available(free) books for active member:", $scope.allAvailableBooks);
+            //console.log("avail response looks like", response.data);
+            $scope.allAvailableMemberBooks = [];
+            $scope.allAvailableBooks = response.data;
+            $scope.allAvailableBooks = $scope.allAvailableBooks.slice(76, -9)
+            $scope.allAvailableBooks = JSON.parse($scope.allAvailableBooks);
+
+            console.log("available(free) books for active member:", $scope.allAvailableBooks);
 
 
-           });
-    }
+        });
+    };
 
     $scope.allMemberBooks = function () {
         console.log("fetching all borrowed books...,:");
@@ -76,16 +76,16 @@ function ($scope,$http,$filter) {
         $http({
             method: 'POST',
             url: 'http://localhost:49893/app/services/WebService.asmx/AllBorrowedBooks',
-            data: { member_id: $scope.fromMember.MemberID}
+            data: { member_id: $scope.fromMember.MemberID }
         }).then(function (response) {
 
             $scope.borrowedMemberBooks = response.data.d;
             $scope.borrowedMemberBooks = JSON.parse(response.data.d);
 
-           
+
             console.log("borrowed response looks like", $scope.borrowedMemberBooks);
         });
-    }
+    };
 
 
     $scope.data = $http
@@ -112,15 +112,15 @@ function ($scope,$http,$filter) {
 
 
            });
-    }
+    };
 
     $scope.helloMember = function (id) {
         $scope.findMember(id)
         //console.log($scope);
         $scope.borrowedMemberBooks = [];
         $scope.allAvailableBooks = [];
-        
-    }
+
+    };
 
 
     $scope.hello();
@@ -181,12 +181,12 @@ function ($scope,$http,$filter) {
         $scope.allBooks();
         $scope.allMemberBooks();
         $scope.draggieDroppieMember = true;
-          
-        
+
+
         //$scope.borrowedAuthorBooks = $scope.formAuthor.Book;
         //$scope.availableAuthorBooks = $scope.formAuthor.Book;
 
-    }
+    };
 
    $scope.showNewBookBasket = function (id) {
        //window.alert("Your about to view books from author !");
@@ -228,11 +228,11 @@ function ($scope,$http,$filter) {
        $scope.authorNewBookShow = true;
        $scope.findAuthor(id)
        console.log($scope);
-       
-       
 
-        
-   }
+
+
+
+   };
    $scope.findMember = function (id) {
        for (a in $scope.members) {
            //console.log(a);
@@ -240,16 +240,15 @@ function ($scope,$http,$filter) {
                $scope.fromMember = $scope.members[a];
        }
 
-   }
+   };
    $scope.findAuthor = function (id) {
-       for (a in $scope.authors)
-       {
+       for (a in $scope.authors) {
            //console.log(a);
            if ($scope.authors[a].AuthorID == id)
                $scope.fromAuthor = $scope.authors[a];
-                }
-       
-   }
+       }
+
+   };
     //T0d0 add logic for finding available books for lending
    $scope.findMembersAndAvailableBook = function (bookid) {
        for (a in $scope.authors) {
@@ -258,8 +257,28 @@ function ($scope,$http,$filter) {
                $scope.formAuthor = $scope.authors[a];
        }
 
-   }
-  
+   };
+  $scope.newBook = null
+   $scope.newBookSubmit = function () {
+       book_description = $scope.newBook.Description;
+       author_id = $scope.fromAuthor.AuthorID;
+       book_title = $scope.newBook.Title;
+
+       console.log("trying to submit new Book data:title,description,authorID//", book_title, book_description, author_id)
+       $http({
+           method: 'POST',
+           url: 'http://localhost:49893/app/services/WebService.asmx/NewBook',
+           data: JSON.stringify({ description: book_description, author: author_id,title : book_title})
+       }).then(function (response) {
+
+          // $scope.hello($scope.fromMember.MemberID);
+           $scope.allBooks();
+           $scope.allMemberBooks();
+           console.log("Success creating new book with id:", response.data);
+       });
+
+
+   };
 
 });
 
