@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="../Content/customStyle.css" />
     
 </head>
-<body>
+<body style="font-family:Lucida Console;">
     
         
    
@@ -56,7 +56,7 @@
                                 <td>{{ x.FirstName }}</td>
                                 <td><span >{{ x.LastName }} </span> </td>
                                 <td>
-                                    <button id="{{x.MemberID}}" ng-click="showBookBasketforMember(x.MemberID)" class="glyphicon-plus-sign">{{x.FirstName}}'s Basket</button>
+                                    <button id="{{x.MemberID}}" ng-click="showBookBasketforMember(x.MemberID)" >{{x.FirstName}}'s Basket</button>
 
                                 </td>
                             </tr>
@@ -92,7 +92,7 @@
                                 <td>{{ x.FirstName }}</td>
                                 <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
                                 <td>
-                                    <button id="{{x.AuthorID}}" ng-click="showNewBookBasket(x.AuthorID)" class="glyphicon-plus-sign">{{x.LastName}}'s new book</button>
+                                    <button id="{{x.AuthorID}}" ng-click="showNewBookBasket(x.AuthorID)" >{{x.LastName}}'s new book</button>
 
                                 </td>
                             </tr>

@@ -87,8 +87,9 @@ function ($scope,$http,$filter) {
         });
     };
 
-
-    $scope.data = $http
+   
+    $scope.helloData = function () {
+        $scope.data = $http
           .get("http://localhost:49893/app/services/WebService.asmx/HelloBooks")
            .then(function (response) {
                $scope.authors = response.data;
@@ -97,9 +98,12 @@ function ($scope,$http,$filter) {
                $scope.authors = JSON.parse($scope.authors);
                console.log("authors with relations<br>", $scope.authors);
 
-                
+
            });
 
+        return $scope.data;
+    };
+    $scope.data = $scope.helloData();
    
     $scope.hello = function () {
         $scope.members = $http
@@ -268,13 +272,16 @@ function ($scope,$http,$filter) {
        $http({
            method: 'POST',
            url: 'http://localhost:49893/app/services/WebService.asmx/NewBook',
-           data: JSON.stringify({ description: book_description, author: author_id,title : book_title})
+           data: JSON.stringify({
+               description: book_description,
+               author: author_id,
+               title: book_title
+           })
        }).then(function (response) {
 
-          // $scope.hello($scope.fromMember.MemberID);
-           $scope.allBooks();
-           $scope.allMemberBooks();
-           console.log("Success creating new book with id:", response.data);
+           // $scope.hello($scope.fromMember.MemberID);
+           $route.reload();
+           console.log("Success creating new book:", response.data);
        });
 
 

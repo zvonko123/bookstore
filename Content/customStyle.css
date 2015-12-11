@@ -69,6 +69,7 @@ color: #fff;
     text-align:center;
     align-content:center;
 }
-.appBody{
+.Body{
     background-color=#9EA3C0;
+    font-family='Courier New'
 }

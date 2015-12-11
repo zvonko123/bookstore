@@ -7,6 +7,7 @@ using System.Web.Services;
 using Newtonsoft.Json;
 
 
+
 /// <summary>
 /// Summary description for WebService
 /// </summary>
@@ -174,6 +175,22 @@ public class WebService : System.Web.Services.WebService {
         }
 
         return JsonConvert.SerializeObject(new statusOK());
+    }
+
+   [WebMethod]
+    public string NewBook(string author, string title, string description)
+    {
+        var tdb = new Database("server=DATA;database=STIMAC_BOOKSTORE;user id=stimac_user; password=stimac_user;");
+
+        var books = tdb.Book;
+        var newBook = new Book(){
+        CoverTypeID=1,GenreID=1, ISBN="ISBN2",Title = title,Summary = description,AuthorID=int.Parse(author),InsertDate= DateTime.Now
+        };
+        tdb.Book.InsertOnSubmit(newBook);
+        tdb.SubmitChanges();
+
+       return JsonConvert.SerializeObject(new statusOK());
+       
     }
     
 }
