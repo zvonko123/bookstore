@@ -91,7 +91,7 @@
                                 <td>{{ x.FirstName }}</td>
                                 <td><span ng-click="showBooksFromAuthor($index)">{{ x.LastName }} </span> </td>
                                 <td>
-                                    <button id="{{x.AuthorID}}" ng-click="showBookBasket(x.AuthorID)" class="glyphicon-plus-sign">{{x.LastName}}'s Basket</button>
+                                    <button id="{{x.AuthorID}}" ng-click="showNewBookBasket(x.AuthorID)" class="glyphicon-plus-sign">{{x.LastName}}'s new book</button>
 
                                 </td>
                             </tr>
@@ -133,7 +133,7 @@
                 <br />
                
                 <div ng-show="draggieDroppieMember">
-                    <label class="authorLabelBasket">>>> {{fromMember.LastName}} <<<</label>
+                    <!--<label class="authorLabelBasket" ng-model="fromMember">>>> {{fromMember.LastName}} <<<</label>-->
 
                     <div class="tab-content">
                         <!-- TAB KOSARICA -->
@@ -169,24 +169,32 @@
                     </div>
                 </div>
 
-                <div ng-show="draggieDroppie">
+                <div ng-show="authorNewBookShow">
                     <label class="authorLabelBasket">>>> {{fromAuthor.LastName}} <<<</label>
 
                     <div class="tab-content">
                         <!-- TAB KOSARICA -->
 
-                        <h3 class="text-center">Borrowed Books</h3><br />
+                        <h3 class="text-center">create new Book</h3><br />
                         <div id='containment-wrapper'>
-
-                            <div id='borrowedBooksDiv' ng-drop=true ng-drop-success="borrowingBook($data,$event)" class='bookstore-panels clearfix'>
-
-                                <div ng-repeat="borrowedBook in borrowedAuthorBooks track by $index">
-                                    <div ng-drag="true" data-allow-transform="true" ng-drag-data="{{borrowedBook}}" class="bookstore-panel-logo">
-                                        <img alt={{borrowedBook.Title}} class="monochrome vertical-center" src={{borrowedBook.CoverImage}}>
-                                    </div>
-                                </div>
-
-                            </div>
+                            <!-- -->
+                            <ng-form name="bookFieldForm">
+                                <label>{{ fromAuthor.FirstName }}'s new book (id:{{fromAuthor.AuthorID}})</label><br /><br />
+                                    <label>Author's first name</label>
+                            <input type="text" class="form-control" name="FirstName" ng-model="fromAuthor.FirstName" required>
+                                <p class="help-block" ng-show="bookFieldForm.FirstName.$invalid">Valid First Name Required</p>
+                                    <label>Author's last name</label>
+                            <input type="text" class="form-control" name="FirstName" ng-model="fromAuthor.LastName" required>
+                                <p class="help-block" ng-show="bookFieldForm.LastName.$invalid">Valid Last Name Required</p>
+                                <br />
+                                    <label>new book title</label>
+                            <input type="text" class="form-control" name="Title" ng-model="newBook.BookTitle" required>
+                                <p class="help-block" ng-show="bookFieldForm.LastName.$invalid">Valid Last Name Required</p> 
+                                    <label>new book description</label>
+                            <input type="text" class="form-control" name="Title" ng-model="newBook.BookTitle" required>
+                                <p class="help-block" ng-show="bookFieldForm.LastName.$invalid">Valid Last Name Required</p> 
+                            <button onsubmit="newBookSubmit()">create</button>
+                            </ng-form>
 
                             <h3 class="text-center">Available Books</h3><br>
                             <div id='availableBooksDiv' ng-drop="true" ng-drop-success="availingBook($data,$event)" class="bookstore-panels">

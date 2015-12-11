@@ -119,16 +119,7 @@ function ($scope,$http,$filter) {
         //console.log($scope);
         $scope.borrowedMemberBooks = [];
         $scope.allAvailableBooks = [];
-        //for (b in $scope.fromMember.Book) {
-
-        ////    //console.log("borrowed books from clicked member:..", $scope.fromMember.Book[b]);
-        ////    //fetch all borrowed books from member and push them into array if they are borrowed and/or available
-        //    //    //below add logic if library has more than 1 of the same book
-        //    for (b in $scope.fromMember.Book) {
-        //        $scope.borrowedMemberBooks.push($scope.fromMember.Book[b])
-        //    }
-
-        //}
+        
     }
 
 
@@ -138,24 +129,38 @@ function ($scope,$http,$filter) {
 
     $scope.bookFormShown = false;
     $scope.booksFromAuthorShown = false;
-    $scope.draggieDroppie = false;
+    $scope.authorNewBookShow = false;
     $scope.membersTableShow = false;
     $scope.authorsTableShow = false;
     $scope.draggieDroppieMember = false
 
+    //fix GUI
     $scope.showMembers = function () {
         if ($scope.membersTableShow === true) {
             $scope.membersTableShow = false;
+            $scope.draggieDroppieMember = false;
         } else {
             $scope.membersTableShow = true;
+            $scope.authorsTableShow = false;
+            $scope.authorNewBookShow = false;
+            
+           
+
         }
     };
 
+    //fix GUI
     $scope.showAuthors = function () {
         if ($scope.authorsTableShow === true) {
             $scope.authorsTableShow = false;
+            $scope.authorNewBookShow = false;
+            
         } else {
             $scope.authorsTableShow = true;
+            $scope.membersTableShow = false;
+            $scope.draggieDroppieMember = false;
+            
+
         }
     };
     //$scope.borrowedAuthorBooks = {{"0": "BookID": "9", "Title": "hitchhiker" },1:{ "BookID": "10", "Title": "ilijada" }};
@@ -175,44 +180,40 @@ function ($scope,$http,$filter) {
         $scope.helloMember(id);
         $scope.allBooks();
         $scope.allMemberBooks();
-        if ($scope.draggieDroppieMember === true) {
-            $scope.draggieDroppieMember = false;
-        } else {
-            $scope.draggieDroppieMember = true;
-        }
+        $scope.draggieDroppieMember = true;
+          
         
         //$scope.borrowedAuthorBooks = $scope.formAuthor.Book;
         //$scope.availableAuthorBooks = $scope.formAuthor.Book;
 
     }
 
-   $scope.showBookBasket = function (id) {
+   $scope.showNewBookBasket = function (id) {
        //window.alert("Your about to view books from author !");
        
        $scope.findAuthor(id)
        console.log($scope);
        $scope.availableAuthorBooks = [];
-       $scope.borrowedAuthorBooks = [];
+       
        for (b in $scope.fromAuthor.Book)
        {
            console.log("logiram knjige kliknutog autora", $scope.fromAuthor.Book[b]);
            //fetch all books from author and push them into array if they are borrowed and/or available
            //below add logic if library has more than 1 of the same book
-           if ($scope.fromAuthor.Book[b].LentToMemberID === null)
+           if ($scope.fromAuthor.Book[b])
            {
                $scope.availableAuthorBooks.push($scope.fromAuthor.Book[b])
             }
-           else {
-               $scope.borrowedAuthorBooks.push($scope.fromAuthor.Book[b])
-           }
+           
 
        }
-       if ($scope.draggieDroppie === true)
-       {
-           $scope.draggieDroppie = false;
-       } else {
-           $scope.draggieDroppie = true;
-       }
+       $scope.authorNewBookShow = true;
+       //if ($scope.authorNewBookShow === true)
+       //{
+       //    $scope.authorNewBookShow = false;
+       //} else {
+       //    $scope.authorNewBookShow = true;
+       //}
        console.log("available books from author", $scope.availableAuthorBooks)
        console.log("borrowed books from author", $scope.borrowedAuthorBooks)
        //$scope.borrowedAuthorBooks = $scope.formAuthor.Book;
@@ -224,7 +225,7 @@ function ($scope,$http,$filter) {
    $scope.showBooksFromAuthor = function (id) {
        window.alert("displayed books from author");
        $scope.booksFromAuthorShown = true;
-       $scope.draggieDroppie = true;
+       $scope.authorNewBookShow = true;
        $scope.findAuthor(id)
        console.log($scope);
        
