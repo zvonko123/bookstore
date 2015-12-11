@@ -7,7 +7,7 @@
     <script src="../Scripts/jquery-ui-1.11.4.min.js"></script>
     <script src="../Scripts/angular.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
-                    
+                    <!--<script src="modules.js"></script>-->
     <script src="app.js"></script>
     <script src="../Scripts/ngDraggable.js"></script>
     
@@ -103,6 +103,28 @@
             </div>
                 <hr />
                 <br /><br /><br />
+
+                <!--<div ng-repeat="book in books" ng-show="bookFormShown">
+
+                <label>Author:</label>
+                <input type="text" id="bookFormAutor" ng-model="formAuthor.LastName" /><br />
+                <ng-form ng-model="$scope.authors"
+                <label>Book:</label>
+                <input type="text" id="bookFormTitle" /><br />
+                <label>Genre:</label>
+                <input type="text" id="bookFormGenre" /><br />
+                <label>Lent:</label>
+                <input type="checkbox" style="will-change" id="bookFormLent" /><br />
+                <label>Customer</label>
+                    <input type="text" id="bookFormLentTo" ng-model="$scope.bookLentTo" />
+                    <br /
+                <button  ng-submit class="glyphicon-apple"></button>
+                </ng-form>
+            </div>
+
+            <div ng-show='booksFromAuthorShown' class='col-md-9' id="booksFromAuthor">
+                <label>Books:</label>
+
 
                 <ul class="bs-glyphicons-list">
                     <li ng-repeat="book in books"><span class="glyphicon-class"></span></li>
